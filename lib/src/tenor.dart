@@ -32,20 +32,18 @@ class Tenor {
     }
   }
 
+  /// Request Gif with `Search` parameter
   Future<TenorResponse> requestGifWithSearch({
     String search,
-    int limit,
-    ContentFilter contentFilter,
-    MediaFilter mediaFilter,
+    int limit = 1,
+    ContentFilter contentFilter = ContentFilter.high,
+    MediaFilter mediaFilter = MediaFilter.basic,
   }) async {
     var url = 'https://api.tenor.com/v1/search';
-    if (limit < 3) {
-      limit = 3;
+    if (limit == null || limit < 1) {
+      limit = 1;
     }
-
-    limit ??= 5;
-    url += '?key=' + apiKey;
-    url += '&limit=$limit';
+    url += '?key=$apiKey&limit' '&limit=$limit';
 
     if (contentFilter == null) {
       url += '&contentfilter=high';
@@ -53,7 +51,7 @@ class Tenor {
       // url += '$contentFilter'.enumVal;
     }
     if (mediaFilter == null) {
-      url += '&media_filter=minimal';
+      url += '&media_filter=basic';
     } else {
       // url += '$mediaFilter'.enumVal;
     }
