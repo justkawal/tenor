@@ -22,30 +22,6 @@ class TenorResult {
     this.media,
   });
 
-  TenorResult copyWith({
-    bool hasCaption,
-    bool hasaudio,
-    int shares,
-    String id,
-    String title,
-    String created,
-    String url,
-    String itemurl,
-    TenorGif media,
-  }) {
-    return TenorResult(
-      hasCaption: hasCaption ?? this.hasCaption,
-      hasaudio: hasaudio ?? this.hasaudio,
-      shares: shares ?? this.shares,
-      id: id ?? this.id,
-      title: title ?? this.title,
-      created: created ?? this.created,
-      url: url ?? this.url,
-      itemurl: itemurl ?? this.itemurl,
-      media: media ?? this.media,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'hasCaption': hasCaption,

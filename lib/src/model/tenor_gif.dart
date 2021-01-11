@@ -11,24 +11,6 @@ class TenorGif {
     this.nanogif,
   });
 
-  TenorGif copyWith({
-    GifTypes nanomp4,
-    GifTypes tinygif,
-    GifTypes tinymp4,
-    GifTypes gif,
-    GifTypes mp4,
-    GifTypes nanogif,
-  }) {
-    return TenorGif(
-      nanomp4: nanomp4 ?? this.nanomp4,
-      tinygif: tinygif ?? this.tinygif,
-      tinymp4: tinymp4 ?? this.tinymp4,
-      gif: gif ?? this.gif,
-      mp4: mp4 ?? this.mp4,
-      nanogif: nanogif ?? this.nanogif,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'nanomp4': nanomp4?.toMap(),

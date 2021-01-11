@@ -14,22 +14,6 @@ class GifTypes {
     this.duration,
   });
 
-  GifTypes copyWith({
-    String url,
-    String previewUrl,
-    int size,
-    List<int> dims,
-    double duration,
-  }) {
-    return GifTypes(
-      url: url ?? this.url,
-      previewUrl: previewUrl ?? this.previewUrl,
-      size: size ?? this.size,
-      dims: dims ?? this.dims,
-      duration: duration ?? this.duration,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'url': url,

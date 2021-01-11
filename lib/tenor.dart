@@ -5,11 +5,11 @@ import 'package:collection/collection.dart';
 import 'dart:convert';
 import 'dart:io';
 
-/// enum
-part 'src/enum/enums.dart';
+/// utility
+part 'src/utility/fetcher.dart';
 
 /// model
-
+part 'src/model/filters.dart';
 part 'src/model/tenor_gif_type.dart';
 part 'src/model/tenor_gif.dart';
 part 'src/model/tenor_response.dart';

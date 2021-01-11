@@ -8,60 +8,86 @@ class Tenor {
     this.language = language ?? 'en';
   }
 
-  Future<TenorResponse> requestImages({
-    int limit,
-    int page,
-    ContentFilter contentFilter,
-    MediaFilter mediaFilter,
-  }) async {
-    return requestGifWithSearch(limit: limit);
-  }
-
-  Future getImages(String url) async {
-    var httpClient = HttpClient();
-    var request = await httpClient.getUrl(Uri.parse(url));
-    var response = await request.close();
-    if (response.statusCode == 200) {
-      var json = await utf8.decoder.bind(response).join();
-      var data = jsonDecode(json);
-      return data;
-    } else {
-      // something went wrong :(
-      print('Http error: ${response.statusCode}');
-      return [];
-    }
-  }
-
-  /// Request Gif with `Search` parameter
-  Future<TenorResponse> requestGifWithSearch({
-    String search,
+  /// All the trending GIF will be fetched
+  ///```dart
+  /// var api = Tenor(apiKey: 'Tenor Api');
+  ///
+  /// var res = await api.requestTrendingGIF(limit: 5);
+  ///
+  /// if (res != null) {
+  ///   res.results.forEach((tenorResult) {
+  ///     var title = tenorResult.title;
+  ///     var media = tenorResult.media;
+  ///     print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
+  ///   });
+  ///   await res.fetchNext().then((nextResult) {
+  ///     print('next results');
+  ///     nextResult.results.forEach((tenorResult) {
+  ///       var title = tenorResult.title;
+  ///       var media = tenorResult.media;
+  ///       print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
+  ///     });
+  ///   });
+  /// }
+  ///```
+  Future<TenorResponse> requestTrendingGIF({
     int limit = 1,
-    ContentFilter contentFilter = ContentFilter.high,
-    MediaFilter mediaFilter = MediaFilter.basic,
+    String contentFilter = ContentFilter.off,
+    String mediaFilter = MediaFilter.minimal,
   }) async {
-    var url = 'https://api.tenor.com/v1/search';
-    if (limit == null || limit < 1) {
-      limit = 1;
-    }
-    url += '?key=$apiKey&limit' '&limit=$limit';
+    var url = 'https://api.tenor.com/v1/trending?key=$apiKey';
+    return await _privateRequestGif(
+      url,
+      limit: limit,
+      contentFilter: contentFilter,
+      mediaFilter: mediaFilter,
+      pos: null,
+    );
+  }
 
-    if (contentFilter == null) {
-      url += '&contentfilter=high';
-    } else {
-      // url += '$contentFilter'.enumVal;
-    }
-    if (mediaFilter == null) {
-      url += '&media_filter=basic';
-    } else {
-      // url += '$mediaFilter'.enumVal;
-    }
+  /// Requests Gif from tenor
+  ///
+  ///```dart
+  /// var api = Tenor(apiKey: 'Tenor Api');
+  ///
+  /// var res = await api.searchGIF('', limit: 5);
+  ///
+  /// if (res != null) {
+  ///   res.results.forEach((tenorResult) {
+  ///     var title = tenorResult.title;
+  ///     var media = tenorResult.media;
+  ///     print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
+  ///   });
+  ///   await res.fetchNext().then((nextResult) {
+  ///     print('next results');
+  ///     nextResult.results.forEach((tenorResult) {
+  ///       var title = tenorResult.title;
+  ///       var media = tenorResult.media;
+  ///       print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
+  ///     });
+  ///   });
+  /// }
+  ///```
+  Future<TenorResponse> searchGIF(
+    String search, {
+    int limit = 1,
+    String contentFilter = ContentFilter.off,
+    String mediaFilter = MediaFilter.minimal,
+  }) async {
+    var url = 'https://api.tenor.com/v1/search?key=$apiKey';
+    return await _privateRequestGif(
+      url,
+      limit: limit,
+      contentFilter: contentFilter,
+      mediaFilter: mediaFilter,
+      pos: null,
+    );
+  }
+}
 
-    if (search != null) url += '&q=' + Uri.encodeFull(search);
-    var data = await getImages(url);
-    TenorResponse res;
-    if (data != null && data.length > 0) {
-      res = TenorResponse.fromMap(data);
-    }
-    return res;
+extension TenorString on String {
+  String get enumVal {
+    var list = this?.split('.');
+    return (list?.isEmpty ?? true) ? null : list.last;
   }
 }

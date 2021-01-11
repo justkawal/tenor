@@ -1,18 +1,23 @@
 import 'package:tenor/tenor.dart';
 
 void main() async {
-  var api = Tenor(apiKey: 'Tenor Api');
+  var api = Tenor(apiKey: 'WVWVKIKO0J5W');
 
-  var res = await api.requestImages(limit: 5);
+  var res = await api.searchGIF('donate', limit: 5);
 
   if (res != null) {
     res.results.forEach((tenorResult) {
       var title = tenorResult.title;
       var media = tenorResult.media;
-      print('$title: tiny-gif : ${media?.tinygif?.previewUrl?.toString()}');
       print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
     });
+    await res.fetchNext().then((nextResult) {
+      print('next results');
+      nextResult.results.forEach((tenorResult) {
+        var title = tenorResult.title;
+        var media = tenorResult.media;
+        print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
+      });
+    });
   }
-
-  res = await api.requestGifWithSearch(search: 'universe', limit: 5);
 }
