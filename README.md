@@ -70,21 +70,70 @@ import 'package:tenor/tenor.dart';
 ````
 
 # Usage
-## Fetch GIF
-  
+## Initialize Tenor
+Initialize Tenor library
 ```dart
+var api = Tenor(apiKey: 'WVWVKIKO0J5W');
 ```
 
-## Fetch Categories
-  
+## Fetch Trending GIF
+Fetch some Trending GiIF
 ```dart
+//requestTrendingGIF({int limit = 1, String contentFilter = ContentFilter.off, String mediaFilter = MediaFilter.minimal});
+
+// fetch trending GIF
+TenorResponse res = await api.requestTrendingGIF(limit: 5);
+res.results.forEach((tenorResult) {
+  var title = tenorResult.title;
+  var media = tenorResult.media;
+  print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
+});
 ```
 
 ## Search for GIF
-  
+Search for the GIF
 ```dart
+//searchGIF(String search, {int limit = 1, String contentFilter = ContentFilter.off, String mediaFilter = MediaFilter.minimal});
+
+TenorResponse res = await api.searchGIF('best nation: donation', limit: 5);
+res.results.forEach((tenorResult) {
+  var title = tenorResult.title;
+  var media = tenorResult.media;
+  print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
+});
 ```
+
+### Fetching Options
+key | description
+------------ | -------------
+ limit | eg. limit the number of GIF to be fetched. limit can vary from `1 to 50`
+ contentFilter | default: `low`. (values: `off`, `low`, `medium`, `high`) specify the content safety filter level. eg. `contentFilter: ContentFilter.low`
+ mediaFilter | default: `minimal`. (values: `basic`, `minimal`) Reduce the Number of GIF formats returned in response. `minimal- (tinygif, gif, and mp4)`.  `basic- (nanomp4, tinygif, tinymp4, gif, mp4, and nanogif)` eg. `mediaFilter: MediaFilter.minimal`
+
+
+## Fetch Next Set of GIF Response
+`fetchNext()` is used to get next set of response for the current query
+
+```dart
+// fetchNext({int limit = 1});
+
+// here the fetchNext function is used to call next set of GIF for the current response
+TenorResponse nextResult = await res.fetchNext();
+print('next results');
+nextResult.results.forEach((tenorResult) {
+  var title = tenorResult.title;
+  var media = tenorResult.media;
+  print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
+});
+```
+### Fetching Next Options
+key | description
+------------ | -------------
+ limit | eg. limit the number of GIF to be fetched. limit can vary from `1 to 50`
+
 
 ## Features coming in next version
 On-going implementation for future:
 - Some more Functions
+ - Fetch Categories
+ - Download GIF
