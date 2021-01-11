@@ -73,7 +73,7 @@ import 'package:tenor/tenor.dart';
 ## Initialize Tenor
 Initialize Tenor library
 ```dart
-var api = Tenor(apiKey: 'WVWVKIKO0J5W');
+var api = Tenor(apiKey: 'ApiKey');
 ```
 
 ## Fetch Trending GIF
