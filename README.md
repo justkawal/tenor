@@ -1,9 +1,4 @@
 # Tenor
-  
-  <a href="https://flutter.io">  
-    <img src="https://img.shields.io/badge/Platform-Flutter-yellow.svg"  
-      alt="Platform" />  
-  </a> 
    <a href="https://pub.dartlang.org/packages/tenor">  
     <img src="https://img.shields.io/pub/v/tenor.svg"  
       alt="Pub Package" />  
@@ -13,7 +8,7 @@
       alt="License: MIT" />  
   </a>  
   <a href="https://patreon.com/justkawal">
-    <img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Djustkawal%26type%3Dpatrons&style=for-the-badge"
+    <img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Djustkawal%26type%3Dpatrons&style=flat"
       alt="Patrons"/>
    </a>
    <a href="https://github.com/justkawal/tenor/issues">  
