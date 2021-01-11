@@ -1,7 +1,7 @@
 import 'package:tenor/tenor.dart';
 
 void main() async {
-  var api = Tenor(apiKey: 'WVWVKIKO0J5W');
+  var api = Tenor(apiKey: 'Tenor Api');
 
   var res = await api.searchGIF('donate', limit: 5);
 
