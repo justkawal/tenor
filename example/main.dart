@@ -1,7 +1,10 @@
 import 'package:tenor/tenor.dart';
+import 'key.dart';
 
 void main() async {
-  var api = Tenor(apiKey: 'Tenor Api');
+  // replce $key with you own api key -> 
+  var apiKey = 'ApiKey';
+  var api = Tenor(apiKey: '$apiKey');
 
   var res = await api.searchGIF('donate', limit: 5);
 
