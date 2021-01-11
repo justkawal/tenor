@@ -95,13 +95,19 @@ Search for the GIF
 ```dart
 //searchGIF(String search, {int limit = 1, String contentFilter = ContentFilter.off, String mediaFilter = MediaFilter.minimal});
 
-TenorResponse res = await api.searchGIF('best nation: donation', limit: 5);
+TenorResponse res = await api.searchGIF('subscribe mrbeast', limit: 5);
 res.results.forEach((tenorResult) {
   var title = tenorResult.title;
   var media = tenorResult.media;
   print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
 });
 ```
+
+<a href="https://patreon.com/justkawal">  
+    <img src="https://tenor.com/view/subscribe-digibyte-mr-beast-human-atm-sub-now-gif-19759335.gif"  width="70%" height="45%"  
+      alt="Donate" />  
+  </a>
+
 
 ### Fetching Options
 key | description
