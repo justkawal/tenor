@@ -74,7 +74,7 @@ class Tenor {
     String contentFilter = ContentFilter.off,
     String mediaFilter = MediaFilter.minimal,
   }) async {
-    var url = 'https://api.tenor.com/v1/search?key=$apiKey';
+    var url = 'https://api.tenor.com/v1/search?key=$apiKey&q=$search';
     return await _privateRequestGif(
       url,
       limit: limit,
