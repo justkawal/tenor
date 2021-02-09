@@ -1,4 +1,5 @@
 import 'package:tenor/tenor.dart';
+
 void main() async {
   // replce 'ApiKey' with your own key -> 'You Own Api Key'
   var apiKey = 'ApiKey';

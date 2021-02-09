@@ -1,7 +1,7 @@
 name: tenor
 description: Fetch Tenor Gifs on dart client and server + on Flutter.
-version: 1.0.2
-homepage: https://kawal.dev
+version: 1.0.3
+homepage: https://github.com/justkawal/tenor
 
 environment:
   sdk: '>=2.10.0 <3.0.0'

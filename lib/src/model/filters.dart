@@ -6,10 +6,10 @@ part of tenor;
 ///
 /// values: (off | low | medium | high)
 class ContentFilter {
-  static const String off = 'off';
-  static const String low = 'low';
-  static const String medium = 'medium';
-  static const String high = 'high';
+  static const off = 'off';
+  static const low = 'low';
+  static const medium = 'medium';
+  static const high = 'high';
 
   static const List<String> values = [off, low, medium, high];
 
@@ -35,12 +35,12 @@ class ContentFilter {
 /// basic -> nanomp4, tinygif, tinymp4, gif, mp4, and nanogif
 class MediaFilter {
   /// minimal -> tinygif, gif, and mp4
-  static const String minimal = 'minimal';
+  static const minimal = 'minimal';
 
   /// basic -> nanomp4, tinygif, tinymp4, gif, mp4, and nanogif
-  static const String basic = 'basic';
+  static const basic = 'basic';
 
-  static const List<String> values = [minimal, basic];
+  static const values = [minimal, basic];
 
   static String _findVal(String val) {
     if (val != null) {
