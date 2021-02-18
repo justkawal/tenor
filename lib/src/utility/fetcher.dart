@@ -41,7 +41,6 @@ Future _getImages(String url) async {
     return data;
   } else {
     // something went wrong :(
-    print('Http error: ${response.statusCode}');
     return [];
   }
 }
