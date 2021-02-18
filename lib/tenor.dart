@@ -3,7 +3,7 @@ library tenor;
 /// imports
 import 'package:collection/collection.dart';
 import 'dart:convert';
-import 'dart:io';
+import 'package:universal_io/io.dart';
 
 /// utility
 part 'src/utility/fetcher.dart';
