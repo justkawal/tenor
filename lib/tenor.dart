@@ -2,6 +2,7 @@ library tenor;
 
 /// imports
 import 'package:collection/collection.dart';
+import 'package:equatable/equatable.dart';
 import 'dart:convert';
 import 'package:universal_io/io.dart';
 

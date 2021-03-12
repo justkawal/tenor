@@ -1,30 +1,30 @@
 part of tenor;
 
 /// Request Gif with `Search` parameter
-Future<TenorResponse> _privateRequestGif(
+Future<TenorResponse?> _privateRequestGif(
   String url, {
   int limit = 1,
-  String contentFilter = ContentFilter.high,
-  String mediaFilter = MediaFilter.basic,
-  String pos,
+  ContentFilter? contentFilter = ContentFilter.high,
+  MediaFilter? mediaFilter = MediaFilter.basic,
+  String? pos,
 }) async {
   // storing the temp url for fetching the next counts.
   var tempUrl = url;
 
-  url += '&limit=${limit?.clamp(1, 50) ?? 1}';
+  url += '&limit=${limit.clamp(1, 50)}';
 
   if (contentFilter != null) {
-    url += '&contentfilter=$contentFilter'.enumVal;
+    url += '&contentfilter=' + contentFilter.toString().enumVal;
   }
   if (mediaFilter != null) {
-    url += '&media_filter=$mediaFilter'.enumVal;
+    url += '&media_filter=' + mediaFilter.toString().enumVal;
   }
   if (pos != null) {
     url += '&pos=$pos';
   }
 
   var data = await _getImages(url);
-  TenorResponse res;
+  TenorResponse? res;
   if (data != null && data.length > 0) {
     res = TenorResponse.fromMap(data, urlNew: tempUrl);
   }

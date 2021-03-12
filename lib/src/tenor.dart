@@ -1,10 +1,10 @@
 part of tenor;
 
 class Tenor {
-  final String apiKey;
-  String language;
+  final String? apiKey;
+  String? language;
 
-  Tenor({this.apiKey, String language}) {
+  Tenor({this.apiKey, String? language}) {
     this.language = language ?? 'en';
   }
 
@@ -30,10 +30,10 @@ class Tenor {
   ///   });
   /// }
   ///```
-  Future<TenorResponse> requestTrendingGIF({
+  Future<TenorResponse?> requestTrendingGIF({
     int limit = 1,
-    String contentFilter = ContentFilter.off,
-    String mediaFilter = MediaFilter.minimal,
+    ContentFilter contentFilter = ContentFilter.off,
+    MediaFilter mediaFilter = MediaFilter.minimal,
   }) async {
     var url = 'https://api.tenor.com/v1/trending?key=$apiKey';
     return await _privateRequestGif(
@@ -68,11 +68,11 @@ class Tenor {
   ///   });
   /// }
   ///```
-  Future<TenorResponse> searchGIF(
+  Future<TenorResponse?> searchGIF(
     String search, {
     int limit = 1,
-    String contentFilter = ContentFilter.off,
-    String mediaFilter = MediaFilter.minimal,
+    ContentFilter contentFilter = ContentFilter.off,
+    MediaFilter mediaFilter = MediaFilter.minimal,
   }) async {
     var url = 'https://api.tenor.com/v1/search?key=$apiKey&q=$search';
     return await _privateRequestGif(
@@ -87,7 +87,7 @@ class Tenor {
 
 extension TenorString on String {
   String get enumVal {
-    var list = this?.split('.');
-    return (list?.isEmpty ?? true) ? null : list.last;
+    var list = split('.');
+    return list.last;
   }
 }

@@ -1,11 +1,12 @@
 part of tenor;
 
-class GifTypes {
-  String url;
-  String previewUrl;
-  int size;
-  List<int> dims;
-  double duration;
+// ignore: must_be_immutable
+class GifTypes extends Equatable {
+  String? url;
+  String? previewUrl;
+  int? size;
+  List<int>? dims;
+  double? duration;
   GifTypes({
     this.url,
     this.previewUrl,
@@ -24,9 +25,8 @@ class GifTypes {
     };
   }
 
-  factory GifTypes.fromMap(Map<String, dynamic> map) {
+  static GifTypes? fromMap(Map<String, dynamic>? map) {
     if (map == null) return null;
-
     return GifTypes(
       url: map['url'],
       previewUrl: map['preview'],
@@ -38,7 +38,7 @@ class GifTypes {
 
   String toJson() => json.encode(toMap());
 
-  factory GifTypes.fromJson(String source) =>
+  static GifTypes? fromJson(String source) =>
       GifTypes.fromMap(json.decode(source));
 
   @override
@@ -47,24 +47,5 @@ class GifTypes {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
-
-    return o is GifTypes &&
-        o.url == url &&
-        o.previewUrl == previewUrl &&
-        o.size == size &&
-        listEquals(o.dims, dims) &&
-        o.duration == duration;
-  }
-
-  @override
-  int get hashCode {
-    return url.hashCode ^
-        previewUrl.hashCode ^
-        size.hashCode ^
-        dims.hashCode ^
-        duration.hashCode;
-  }
+  List<Object?> get props => [url, previewUrl, size, dims, duration];
 }
