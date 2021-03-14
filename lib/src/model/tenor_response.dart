@@ -1,46 +1,48 @@
 part of tenor;
 
-class TenorResponse {
+// ignore: must_be_immutable
+class TenorResponse extends Equatable {
   List<TenorResult> results;
-  String next;
-  final String url;
-  String contentFilter = ContentFilter.high;
-  String mediaFilter = MediaFilter.basic;
+  String? next;
+  final String? url;
+  ContentFilter contentFilter;
+  MediaFilter mediaFilter;
   TenorResponse({
-    this.results,
+    required this.results,
     this.next,
     this.url,
-    this.contentFilter,
-    this.mediaFilter,
+    this.contentFilter = ContentFilter.high,
+    this.mediaFilter = MediaFilter.basic,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'results': results?.map((x) => x?.toMap())?.toList(),
+      'results': results.map((x) => x.toMap()).toList(),
       'next': next,
-      'contentFilter': ContentFilter._findVal(contentFilter),
-      'mediaFilter': MediaFilter._findVal(mediaFilter),
+      'contentFilter': contentFilter.toString().enumVal,
+      'mediaFilter': mediaFilter.toString().enumVal,
     };
   }
 
-  factory TenorResponse.fromMap(Map<String, dynamic> map, {String urlNew}) {
+  static TenorResponse? fromMap(Map<String, dynamic>? map, {String? urlNew}) {
     if (map == null) return null;
-
     return TenorResponse(
       results: List<TenorResult>.from(
-          map['results']?.map((x) => TenorResult.fromMap(x))),
+          map['results']?.map((x) => TenorResult.fromMap(x)) ??
+              <TenorResult>[]),
       next: map['next'],
       url: urlNew,
-      contentFilter: ContentFilter._findVal(map['contentFilter']),
-      mediaFilter: MediaFilter._findVal(map['mediaFilter']),
+      contentFilter: map['contentFilter'] ?? ContentFilter.high,
+      mediaFilter: map['mediaFilter'] ?? MediaFilter.basic,
     );
   }
 
-  Future<TenorResponse> fetchNext({int limit = 1}) {
+  Future<TenorResponse?> fetchNext({int limit = 1}) {
     return _privateRequestGif(
-      url,
+      url!,
       limit: limit,
       contentFilter: null, // this is done on purpose
+      size: null,
       mediaFilter: null, // this is done on purpose
       pos: next,
     );
@@ -51,19 +53,9 @@ class TenorResponse {
   @override
   String toString() => 'TenorResponse(results: $results, next: $next)';
 
-  factory TenorResponse.fromJson(String source) =>
+  static TenorResponse? fromJson(String source) =>
       TenorResponse.fromMap(json.decode(source));
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
-
-    return o is TenorResponse &&
-        listEquals(o.results, results) &&
-        o.next == next;
-  }
-
-  @override
-  int get hashCode => results.hashCode ^ next.hashCode;
+  List<Object?> get props => [results];
 }
