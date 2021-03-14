@@ -234,7 +234,9 @@ key | description
 
 // here the fetchNext function is used to call next set of GIF which is sequenced after current response
 
-TenorResponse? nextResult = await /*.... Any function which returns TenorResponse ....*/
+TenorResponse? firstSetResponse = await tenor. /*.... Functions used to get TenorResponse? ....*/
+
+TenorResponse? nextResult = await firstSetResponse?.fetchNext();
 
 nextResult?.results.forEach((tenorResult) {
   var title = tenorResult.title;
@@ -247,7 +249,10 @@ key | description
 ------------ | -------------
  limit | eg. limit the number of GIF to be fetched. limit can vary from `1 to 50`
 
+# Donate
+ -  [A Mac M1 would be sufficient. 😆](https://www.apple.com/in/shop/buy-mac/macbook-air/space-grey-apple-m1-chip-with-8%E2%80%91core-cpu-and-8%E2%80%91core-gpu-512gb#)
+ -  Paypal: https://paypal.me/kawal7415
 
 # What's next ? 🤔
 - We are thinking what we should give next after giving all these features. ( Your donation would help me to collect money to buy Mac M1 for faster work. ) 
-- If you have any new feature request then go ahead and ping us, We will integrate it.
+- If you have any new feature request then go ahead and ping me, I'll integrate it.
