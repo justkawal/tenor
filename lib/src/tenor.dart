@@ -105,7 +105,7 @@ class Tenor {
   /// ```dart
   ///
   /// var api = Tenor(apiKey: 'Tenor Api');
-  /// List<String> trendingSearch = await api.trendingSearch('un', limit: 5);
+  /// List<String> trendingSearch = await api.trendingSearch(limit: 5);
   ///```
   Future<List<String>> trendingSearch({
     int limit = 20,
