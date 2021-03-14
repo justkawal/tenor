@@ -11,7 +11,7 @@ void main() async {
   ///
   /// exmaple of searching of keyword on tenor
   ///
- 
+
   print(' Fetching 5 donate searched Gif ');
   var res = await api.searchGIF('donate', limit: 5);
   printTenorResponse(res);

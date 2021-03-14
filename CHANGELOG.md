@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.5-null-safety] - 2021-03-14
+### Improvements
+- Support for null-safety
+
 ## [1.0.4] - 2021-02-18
 ### Improvements
 - using universal_io for web_support

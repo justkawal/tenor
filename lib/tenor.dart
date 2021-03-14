@@ -10,8 +10,6 @@ part 'src/service/category_fetcher.dart';
 part 'src/service/server_request.dart';
 part 'src/service/gif_fetcher.dart';
 part 'src/service/search_suggestions.dart';
-part 'src/service/download_gif_web.dart';
-part 'src/service/download_gif_client.dart';
 
 /// utility
 part 'src/utility/enums.dart';
