@@ -22,12 +22,7 @@
   <br>
   <br>
   
-# Donate [![ ](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Djustkawal%26type%3Dpatrons&style=for-the-badge)](https://patreon.com/justkawal)
-<a href="https://patreon.com/justkawal">  
-    <img src="https://tenor.com/view/poor-kristen-wiig-help-no-broke-gif-4670237.gif"  width="70%" height="45%"  
-      alt="Donate" />  
-  </a>
- 
+
 ### Fetch, Search GIF more easily and customised manner from [Tenor](https://www.pub.dev/packages/tenor)
 
 # Table of Contents
@@ -77,16 +72,24 @@ var api = Tenor(apiKey: 'ApiKey');
 ```
 
 ## Fetch Trending GIF
-Fetch some Trending GiIF
-```dart
-//requestTrendingGIF({int limit = 1, String contentFilter = ContentFilter.off, String mediaFilter = MediaFilter.minimal});
+Returns response containing a list of the current global trending GIFs. The trending stream is updated regularly throughout the day.
 
-// fetch trending GIF
-TenorResponse res = await api.requestTrendingGIF(limit: 5);
-res.results.forEach((tenorResult) {
+Important: `limit`: `1 <= limit <= 50`
+
+```dart
+// Future<TenorResponse?> requestTrendingGIF({
+//   int limit = 20,
+//   ContentFilter contentFilter = ContentFilter.off,
+//   GifSize size = GifSize.all,
+//   MediaFilter mediaFilter = MediaFilter.minimal,
+// })
+var api = Tenor(apiKey: 'Tenor Api');
+
+TenorResponse? res = await api.requestTrendingGIF(limit: 5);
+res?.results.forEach((TenorResult tenorResult) {
   var title = tenorResult.title;
   var media = tenorResult.media;
-  print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
+  print('$title: gif : ${media?.gif?.previewUrl?.toString()}');
 });
 ```
 
@@ -141,5 +144,4 @@ key | description
 ## Features coming in next version
 On-going implementation for future:
 - Some more Functions
- - Fetch Categories
  - Download GIF
