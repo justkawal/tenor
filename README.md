@@ -83,9 +83,11 @@ Important: `limit`: `1 <= limit <= 50`
 //   GifSize size = GifSize.all,
 //   MediaFilter mediaFilter = MediaFilter.minimal,
 // })
-var api = Tenor(apiKey: 'Tenor Api');
 
-TenorResponse? res = await api.requestTrendingGIF(limit: 5);
+Tenor tenor = Tenor(apiKey: 'Tenor Api');
+
+// fetch trending Gif
+TenorResponse? res = await tenor.requestTrendingGIF(limit: 5);
 res?.results.forEach((TenorResult tenorResult) {
   var title = tenorResult.title;
   var media = tenorResult.media;
@@ -93,21 +95,33 @@ res?.results.forEach((TenorResult tenorResult) {
 });
 ```
 
-## Search for GIF
-Search for the GIF
-```dart
-//searchGIF(String search, {int limit = 1, String contentFilter = ContentFilter.off, String mediaFilter = MediaFilter.minimal});
+## Search GIF
+Returns response containing a list of the searched Gif from Tenor.
 
-TenorResponse res = await api.searchGIF('subscribe mrbeast', limit: 5);
-res.results.forEach((tenorResult) {
+Important: `limit`: `1 <= limit <= 50`
+
+```dart
+// Future<TenorResponse?> searchGIF(
+//   String search, {
+//   int limit = 20,
+//   ContentFilter contentFilter = ContentFilter.off,
+//   GifSize size = GifSize.all,
+//   MediaFilter mediaFilter = MediaFilter.minimal,
+// })
+
+Tenor tenor = Tenor(apiKey: 'Tenor Api');
+
+// search Gif
+TenorResponse? res = await tenor.searchGIF('universe', limit: 5);
+res?.results.forEach((TenorResult tenorResult) {
   var title = tenorResult.title;
   var media = tenorResult.media;
-  print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
+  print('$title: gif : ${media?.gif?.previewUrl?.toString()}');
 });
 ```
 
-<a href="https://patreon.com/justkawal">  
-    <img src="https://tenor.com/view/subscribe-digibyte-mr-beast-human-atm-sub-now-gif-19759335.gif"  width="70%" height="45%"  
+<a href="https://patreon.com /justkawal">  
+    <img src="https://tenor.com /view/subscribe-digibyte-mr-beast-human-atm-sub-now-gif-19759335.gif" width="70%" height="45%"  
       alt="Donate" />  
   </a>
 
@@ -116,8 +130,9 @@ res.results.forEach((tenorResult) {
 key | description
 ------------ | -------------
  limit | eg. limit the number of GIF to be fetched. limit can vary from `1 to 50`
- contentFilter | default: `low`. (values: `off`, `low`, `medium`, `high`) specify the content safety filter level. eg. `contentFilter: ContentFilter.low`
- mediaFilter | default: `minimal`. (values: `basic`, `minimal`) Reduce the Number of GIF formats returned in response. `minimal- (tinygif, gif, and mp4)`.  `basic- (nanomp4, tinygif, tinymp4, gif, mp4, and nanogif)` eg. `mediaFilter: MediaFilter.minimal`
+ contentFilter | (values: `off`, `low`, `medium`, `high`) specify the content safety filter level. eg. `contentFilter: ContentFilter.low`
+ mediaFilter | (values: `basic`, `minimal`) Reduce the Number of GIF formats returned in response. `minimal- (tinygif, gif, and mp4)`.  `basic- (nanomp4, tinygif, tinymp4, gif, mp4, and nanogif)` eg. `mediaFilter: MediaFilter.minimal` 
+ size | GIFs with `aspect ratios` that fit with in the selected range. values: (`all`, `wide`, `standard`), `all` - no constraints, `wide` - 0.42 <= aspect ratio <= 2.36, `standard` - .56 <= aspect ratio <= 1.78
 
 
 ## Fetch Next Set of GIF Response
@@ -127,7 +142,7 @@ key | description
 // fetchNext({int limit = 1});
 
 // here the fetchNext function is used to call next set of GIF for the current response
-TenorResponse nextResult = await res.fetchNext();
+TenorResponse? nextResult = await /*.... Any function which returns TenorResponse ....*/
 print('next results');
 nextResult.results.forEach((tenorResult) {
   var title = tenorResult.title;
@@ -143,5 +158,4 @@ key | description
 
 ## Features coming in next version
 On-going implementation for future:
-- Some more Functions
  - Download GIF
