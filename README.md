@@ -249,5 +249,5 @@ key | description
 
 
 # What's next ? 🤔
- - We are still thinking what we should give next after giving all these features. ( Your donation would help me to collect money to buy Mac M1 for faster work. ) 
-- Why don't you donate and also make a feature request at the same time ??
+- We are thinking what we should give next after giving all these features. ( Your donation would help me to collect money to buy Mac M1 for faster work. ) 
+- If you have any new feature request then go ahead and ping us, We will integrate it.
