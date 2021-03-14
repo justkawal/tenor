@@ -4,8 +4,9 @@ part of tenor;
 Future<TenorResponse?> _privateRequestGif(
   String url, {
   int limit = 1,
-  ContentFilter? contentFilter = ContentFilter.high,
-  MediaFilter? mediaFilter = MediaFilter.basic,
+  ContentFilter? contentFilter = ContentFilter.off,
+  GifSize? size = GifSize.all,
+  MediaFilter? mediaFilter = MediaFilter.minimal,
   String? pos,
 }) async {
   // storing the temp url for fetching the next counts.
@@ -19,28 +20,17 @@ Future<TenorResponse?> _privateRequestGif(
   if (mediaFilter != null) {
     url += '&media_filter=' + mediaFilter.toString().enumVal;
   }
+  if (size != null) {
+    url += '&ar_range=' + size.toString().enumVal;
+  }
   if (pos != null) {
     url += '&pos=$pos';
   }
 
-  var data = await _getImages(url);
+  var data = await _serverRequest(url);
   TenorResponse? res;
   if (data != null && data.length > 0) {
     res = TenorResponse.fromMap(data, urlNew: tempUrl);
   }
   return res;
-}
-
-Future _getImages(String url) async {
-  var httpClient = HttpClient();
-  var request = await httpClient.getUrl(Uri.parse(url));
-  var response = await request.close();
-  if (response.statusCode == 200) {
-    var json = await utf8.decoder.bind(response).join();
-    var data = jsonDecode(json);
-    return data;
-  } else {
-    // something went wrong :(
-    return [];
-  }
 }

@@ -7,7 +7,7 @@ void main() async {
       File('/Users/kawal/Desktop/tenor/example/apiKey').readAsStringSync();
   var api = Tenor(apiKey: '$apiKey');
 
-  var res = await api.searchGIF('donate', limit: 35);
+  /* var res = await api.searchGIF('donate', limit: 5);
   var i = 1;
   if (res != null) {
     res.results.forEach((tenorResult) {
@@ -27,7 +27,9 @@ void main() async {
   }
   print('\n---------------------\n');
 
-  res = await api.requestTrendingGIF(limit: 5);
+  res = await api.requestTrendingGIF(
+    limit: 5,
+  );
 
   if (res != null) {
     res.results.forEach((tenorResult) {
@@ -43,5 +45,12 @@ void main() async {
         print('$title: gif      : ${media?.gif?.previewUrl?.toString()}');
       });
     });
-  }
+  } */
+
+/*   var categories = await api.requestCategories();
+  if (categories != null) {
+    print("\n"+categories.toString());
+  } */
+  var suggestions = await api.autoComplete('a', limit: 20);
+  print(suggestions.toString());
 }
