@@ -31,7 +31,7 @@ class GifTypes extends Equatable {
       url: map['url'],
       previewUrl: map['preview'],
       size: map['size'],
-      dims: List<int>.from(map['dims']),
+      dims: List<int>.from(map['dims'] ?? <int>[]),
       duration:
           map['duration'] != null ? map['duration'] + .0 : map['duration'],
     );

@@ -42,7 +42,7 @@ class TenorResponse extends Equatable {
       url!,
       limit: limit,
       contentFilter: null, // this is done on purpose
-      size: null,
+      size: null, // this is done on purpose
       mediaFilter: null, // this is done on purpose
       pos: next,
     );

@@ -250,4 +250,5 @@ key | description
 
 ## Features coming in next version
 On-going implementation for future:
- - Download GIF
+ - We are still thinking what we should give next after giving all these features. ( Your donation would help me to collect money to buy Mac M1 for faster work. ) 
+- Why don't you donate and also make a feature request at the same time ??
