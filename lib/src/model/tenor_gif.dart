@@ -1,7 +1,8 @@
 part of tenor;
 
-class TenorGif {
-  GifTypes nanomp4, tinygif, tinymp4, gif, mp4, nanogif;
+// ignore: must_be_immutable
+class TenorGif extends Equatable {
+  GifTypes? nanomp4, tinygif, tinymp4, gif, mp4, nanogif;
   TenorGif({
     this.nanomp4,
     this.tinygif,
@@ -22,9 +23,8 @@ class TenorGif {
     };
   }
 
-  factory TenorGif.fromMap(Map<String, dynamic> map) {
+  static TenorGif? fromMap(Map<String, dynamic>? map) {
     if (map == null) return null;
-
     return TenorGif(
       nanomp4: GifTypes.fromMap(map['nanomp4']),
       tinygif: GifTypes.fromMap(map['tinygif']),
@@ -37,7 +37,7 @@ class TenorGif {
 
   String toJson() => json.encode(toMap());
 
-  factory TenorGif.fromJson(String source) =>
+  static TenorGif? fromJson(String source) =>
       TenorGif.fromMap(json.decode(source));
 
   @override
@@ -46,25 +46,5 @@ class TenorGif {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is TenorGif &&
-        o.nanomp4 == nanomp4 &&
-        o.tinygif == tinygif &&
-        o.tinymp4 == tinymp4 &&
-        o.gif == gif &&
-        o.mp4 == mp4 &&
-        o.nanogif == nanogif;
-  }
-
-  @override
-  int get hashCode {
-    return nanomp4.hashCode ^
-        tinygif.hashCode ^
-        tinymp4.hashCode ^
-        gif.hashCode ^
-        mp4.hashCode ^
-        nanogif.hashCode;
-  }
+  List<Object?> get props => [nanomp4, tinygif, tinymp4, gif, mp4, nanogif];
 }

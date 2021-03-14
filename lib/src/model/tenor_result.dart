@@ -1,19 +1,20 @@
 part of tenor;
 
-class TenorResult {
-  bool hasCaption;
-  bool hasaudio;
+// ignore: must_be_immutable
+class TenorResult extends Equatable {
+  bool hasCaption = false;
+  bool hasaudio = false;
   int shares;
-  String id;
-  String title;
-  String created;
-  String url;
-  String itemurl;
-  TenorGif media;
+  String? id;
+  String? title;
+  String? created;
+  String? url;
+  String? itemurl;
+  TenorGif? media;
   TenorResult({
-    this.hasCaption,
-    this.hasaudio,
-    this.shares,
+    this.hasCaption = false,
+    this.hasaudio = false,
+    this.shares = 0,
     this.id,
     this.title,
     this.created,
@@ -36,20 +37,18 @@ class TenorResult {
     };
   }
 
-  factory TenorResult.fromMap(Map<String, dynamic> map) {
+  static TenorResult? fromMap(Map<String, dynamic>? map) {
     if (map == null) return null;
-
     return TenorResult(
-      hasCaption: map['hascaption'],
-      hasaudio: map['hasaudio'],
-      shares: map['shares'],
+      hasCaption: map['hascaption'] ?? false,
+      hasaudio: map['hasaudio'] ?? false,
+      shares: map['shares'] ?? 0,
       id: map['id'],
       title: map['title'],
       created: '${map['created']}',
       url: map['url'],
       itemurl: map['itemurl'],
-      media: TenorGif.fromMap((map != null &&
-              map['media'] != null &&
+      media: TenorGif.fromMap((map['media'] != null &&
               (map['media'] is List && map['media'].length != 0))
           ? map['media'][0]
           : <String, dynamic>{}),
@@ -58,7 +57,7 @@ class TenorResult {
 
   String toJson() => json.encode(toMap());
 
-  factory TenorResult.fromJson(String source) =>
+  static TenorResult? fromJson(String source) =>
       TenorResult.fromMap(json.decode(source));
 
   @override
@@ -67,31 +66,6 @@ class TenorResult {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is TenorResult &&
-        o.hasCaption == hasCaption &&
-        o.hasaudio == hasaudio &&
-        o.shares == shares &&
-        o.id == id &&
-        o.title == title &&
-        o.created == created &&
-        o.url == url &&
-        o.itemurl == itemurl &&
-        o.media == media;
-  }
-
-  @override
-  int get hashCode {
-    return hasCaption.hashCode ^
-        hasaudio.hashCode ^
-        shares.hashCode ^
-        id.hashCode ^
-        title.hashCode ^
-        created.hashCode ^
-        url.hashCode ^
-        itemurl.hashCode ^
-        media.hashCode;
-  }
+  List<Object?> get props =>
+      [hasCaption, hasaudio, shares, id, title, created, url, itemurl, media];
 }

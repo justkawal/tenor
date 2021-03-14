@@ -12,4 +12,4 @@ build/
 # Directory created by dartdoc
 doc/api/
 
-key.dart
+/example/apiKey
