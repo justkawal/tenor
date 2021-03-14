@@ -24,7 +24,7 @@
   
 
 ### Fetch, Search GIF more easily and customised manner from [Tenor](https://www.pub.dev/packages/tenor)
-### This is MIT licensed library, which means you can use it anywhere without any consent from justkawal, because we believe in [Open-Source](https://paypal.me/kawal7415)
+### This library is MIT licensed, which means you can use it anywhere without any consent from [justkawal](https://github.com/justkawal), because we believe in [Open-Source](https://paypal.me/kawal7415)
 
 # Table of Contents
   - [Installing](#lets-get-started)
