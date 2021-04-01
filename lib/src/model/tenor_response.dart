@@ -3,12 +3,12 @@ part of tenor;
 // ignore: must_be_immutable
 class TenorResponse extends Equatable {
   List<TenorResult> results;
-  String? next;
-  final String? url;
+  String next;
+  final String url;
   ContentFilter contentFilter;
   MediaFilter mediaFilter;
   TenorResponse({
-    required this.results,
+    this.results,
     this.next,
     this.url,
     this.contentFilter = ContentFilter.high,
@@ -24,12 +24,11 @@ class TenorResponse extends Equatable {
     };
   }
 
-  static TenorResponse? fromMap(Map<String, dynamic>? map, {String? urlNew}) {
+  static TenorResponse fromMap(Map<String, dynamic> map, {String urlNew}) {
     if (map == null) return null;
     return TenorResponse(
-      results: List<TenorResult>.from(
-          map['results']?.map((x) => TenorResult.fromMap(x)) ??
-              <TenorResult>[]),
+      results: map['results']?.map((x) => TenorResult.fromMap(x))?.toList() ??
+          <TenorResult>[],
       next: map['next'],
       url: urlNew,
       contentFilter: map['contentFilter'] ?? ContentFilter.high,
@@ -37,9 +36,9 @@ class TenorResponse extends Equatable {
     );
   }
 
-  Future<TenorResponse?> fetchNext({int limit = 1}) {
+  Future<TenorResponse> fetchNext({int limit = 1}) {
     return _privateRequestGif(
-      url!,
+      url,
       limit: limit,
       contentFilter: null, // this is done on purpose
       size: null, // this is done on purpose
@@ -53,9 +52,9 @@ class TenorResponse extends Equatable {
   @override
   String toString() => 'TenorResponse(results: $results, next: $next)';
 
-  static TenorResponse? fromJson(String source) =>
+  static TenorResponse fromJson(String source) =>
       TenorResponse.fromMap(json.decode(source));
 
   @override
-  List<Object?> get props => [results];
+  List<Object> get props => [results];
 }

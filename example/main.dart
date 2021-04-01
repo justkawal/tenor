@@ -48,8 +48,8 @@ void main() async {
   print(suggestions.toString());
 }
 
-void printTenorResponse(TenorResponse? res) {
-  res?.results.forEach((tenorResult) {
+void printTenorResponse(TenorResponse res) {
+  res?.results?.forEach((tenorResult) {
     var title = tenorResult.title;
     var media = tenorResult.media;
     print('$title: gif   ${i++}   : ${media?.gif?.previewUrl?.toString()}');

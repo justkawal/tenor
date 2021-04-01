@@ -1,13 +1,13 @@
 part of tenor;
 
 /// Request Gif with `Search` parameter
-Future<TenorResponse?> _privateRequestGif(
+Future<TenorResponse> _privateRequestGif(
   String url, {
   int limit = 1,
-  ContentFilter? contentFilter = ContentFilter.off,
-  GifSize? size = GifSize.all,
-  MediaFilter? mediaFilter = MediaFilter.minimal,
-  String? pos,
+  ContentFilter contentFilter = ContentFilter.off,
+  GifSize size = GifSize.all,
+  MediaFilter mediaFilter = MediaFilter.minimal,
+  String pos,
 }) async {
   // storing the temp url for fetching the next counts.
   var tempUrl = url;
@@ -28,7 +28,7 @@ Future<TenorResponse?> _privateRequestGif(
   }
 
   var data = await _serverRequest(url);
-  TenorResponse? res;
+  TenorResponse res;
   if (data != null && data.length > 0) {
     res = TenorResponse.fromMap(data, urlNew: tempUrl);
   }
