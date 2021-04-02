@@ -27,8 +27,9 @@ class TenorResponse extends Equatable {
   static TenorResponse fromMap(Map<String, dynamic> map, {String urlNew}) {
     if (map == null) return null;
     return TenorResponse(
-      results: map['results']?.map((x) => TenorResult.fromMap(x))?.toList() ??
-          <TenorResult>[],
+      results: List<TenorResult>.from(
+          map['results']?.map((x) => TenorResult.fromMap(x)) ??
+              <TenorResult>[]),
       next: map['next'],
       url: urlNew,
       contentFilter: map['contentFilter'] ?? ContentFilter.high,
