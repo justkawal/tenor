@@ -261,5 +261,5 @@ key | description
  -  Paypal: https://paypal.me/kawal7415
 
 # What's next ? 🤔
-- We are thinking what we should give next after giving all these features. ( Your donation would help me to collect money to buy Mac M1 for faster work. ) 
+- We are thinking what we should give next after giving all these features. ( Your donation would help me to boost the work on this repo and resolve issues faster ) 
 - If you have any new feature request then go ahead and ping me, I'll integrate it.
