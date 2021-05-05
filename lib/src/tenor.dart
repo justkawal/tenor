@@ -25,7 +25,7 @@ class Tenor {
     GifSize size = GifSize.all,
     MediaFilter mediaFilter = MediaFilter.minimal,
   }) async {
-    var url = 'https://g.tenor.com/v1/trending?key=$apiKey';
+    var url = 'https://g.tenor.com/v1/trending?key=$apiKey&locale=$language';
     return await _privateRequestGif(
       url,
       limit: limit,
@@ -49,7 +49,8 @@ class Tenor {
     GifSize size = GifSize.all,
     MediaFilter mediaFilter = MediaFilter.minimal,
   }) async {
-    var url = 'https://g.tenor.com/v1/search?key=$apiKey&q=$search';
+    var url =
+        'https://g.tenor.com/v1/search?key=$apiKey&locale=$language&q=$search';
     return await _privateRequestGif(
       url,
       limit: limit,
@@ -73,7 +74,8 @@ class Tenor {
     GifSize size = GifSize.all,
     MediaFilter mediaFilter = MediaFilter.minimal,
   }) async {
-    var url = 'https://g.tenor.com/v1/random?key=$apiKey&q=$search';
+    var url =
+        'https://g.tenor.com/v1/random?key=$apiKey&locale=$language&q=$search';
     return await _privateRequestGif(
       url,
       limit: limit,
@@ -94,7 +96,8 @@ class Tenor {
     String search, {
     int limit = 20,
   }) async {
-    var url = 'https://g.tenor.com/v1/search_suggestions?key=$apiKey&q=$search';
+    var url =
+        'https://g.tenor.com/v1/search_suggestions?key=$apiKey&locale=$language&q=$search';
     return await _requestSearchSuggestions(
       url,
       limit: limit,
@@ -110,7 +113,8 @@ class Tenor {
   Future<List<String>> trendingSearch({
     int limit = 20,
   }) async {
-    var url = 'https://g.tenor.com/v1/trending_terms?key=$apiKey';
+    var url =
+        'https://g.tenor.com/v1/trending_terms?key=$apiKey&locale=$language';
     return await _requestSearchSuggestions(
       url,
       limit: limit,
@@ -127,7 +131,8 @@ class Tenor {
     String search, {
     int limit = 20,
   }) async {
-    var url = 'https://g.tenor.com/v1/autocomplete?key=$apiKey&q=$search';
+    var url =
+        'https://g.tenor.com/v1/autocomplete?key=$apiKey&locale=$language&q=$search';
     return await _requestSearchSuggestions(
       url,
       limit: limit,
@@ -145,7 +150,7 @@ class Tenor {
     ContentFilter contentFilter = ContentFilter.off,
     CategoryType categoryType = CategoryType.featured,
   }) async {
-    var url = 'https://g.tenor.com/v1/categories?key=$apiKey';
+    var url = 'https://g.tenor.com/v1/categories?key=$apiKey&locale=$language';
     return await _requestTenorCategories(
       url,
       contentFilter: contentFilter,
