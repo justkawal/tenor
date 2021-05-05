@@ -3,7 +3,6 @@ description: Fetch, Search Tenor Gifs on dart client and server + on Flutter. Re
 version: 1.0.9
 homepage: https://github.com/justkawal/tenor
 
-
 environment:
   sdk: '>=2.12.0 <3.0.0'
 

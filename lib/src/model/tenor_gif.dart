@@ -2,7 +2,12 @@ part of tenor;
 
 // ignore: must_be_immutable
 class TenorGif extends Equatable {
-  GifTypes? nanomp4, tinygif, tinymp4, gif, mp4, nanogif;
+  GifTypes? nanomp4;
+  GifTypes? tinygif;
+  GifTypes? tinymp4;
+  GifTypes? gif;
+  GifTypes? mp4;
+  GifTypes? nanogif;
   TenorGif({
     this.nanomp4,
     this.tinygif,
