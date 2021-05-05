@@ -69,7 +69,14 @@ import 'package:tenor/tenor.dart';
 ## Initialize Tenor
 Initialize Tenor library
 ```dart
-Tenor tenor = Tenor(apiKey: 'ApiKey');
+Tenor tenor = Tenor(apiKey: 'ApiKey', language: TenorLanguage.English);
+```
+
+## Select the Language Codes
+TenorLanguage provides codes for different `ISO 639-1 language code`
+```dart
+var englishCode = TenorLanguage.English;
+
 ```
 
 ## Fetch Trending GIF

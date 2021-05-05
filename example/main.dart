@@ -1,3 +1,4 @@
+import 'package:tenor/src/utility/language_codes.dart';
 import 'package:tenor/tenor.dart';
 import 'dart:io';
 
@@ -6,7 +7,7 @@ void main() async {
   // replce 'ApiKey' with your own key -> 'You Own Api Key'
   var apiKey =
       File('/Users/kawal/Desktop/tenor/example/apiKey').readAsStringSync();
-  var api = Tenor(apiKey: '$apiKey');
+  var api = Tenor(apiKey: '$apiKey', language: TenorLanguage.English);
 
   ///
   /// exmaple of searching of keyword on tenor

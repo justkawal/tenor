@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.9] - 2021-05-05
+### Improvements
+- Language Code addition
+
 ## [1.0.6-null-safety] - 2021-03-14
 ### Improvements
 - Some improvements
