@@ -17,15 +17,15 @@ class Tenor {
   ///```dart
   /// var api = Tenor(apiKey: 'Tenor Api');
   ///
-  /// TenorResponse res = await api.requestTrendingGIF(limit: 5);
+  /// TenorResponse? res = await api.requestTrendingGIF(limit: 5);
   ///```
-  Future<TenorResponse> requestTrendingGIF({
+  Future<TenorResponse?> requestTrendingGIF({
     int limit = 20,
     ContentFilter contentFilter = ContentFilter.off,
     GifSize size = GifSize.all,
     MediaFilter mediaFilter = MediaFilter.minimal,
   }) async {
-    var url = 'https://g.tenor.com/v1/trending?key=$apiKey&locale=$language';
+    var url = 'https://g.tenor.com/v1/trending?key=$apiKey';
     return await _privateRequestGif(
       url,
       limit: limit,
@@ -40,17 +40,16 @@ class Tenor {
   ///```dart
   /// var api = Tenor(apiKey: 'Tenor Api');
   ///
-  /// TenorResponse res = await api.searchGIF('universe', limit: 5);
+  /// TenorResponse? res = await api.searchGIF('universe', limit: 5);
   ///```
-  Future<TenorResponse> searchGIF(
+  Future<TenorResponse?> searchGIF(
     String search, {
     int limit = 20,
     ContentFilter contentFilter = ContentFilter.off,
     GifSize size = GifSize.all,
     MediaFilter mediaFilter = MediaFilter.minimal,
   }) async {
-    var url =
-        'https://g.tenor.com/v1/search?key=$apiKey&locale=$language&q=$search';
+    var url = 'https://g.tenor.com/v1/search?key=$apiKey&q=$search';
     return await _privateRequestGif(
       url,
       limit: limit,
@@ -65,17 +64,16 @@ class Tenor {
   ///```dart
   ///
   /// var api = Tenor(apiKey: 'Tenor Api');
-  /// TenorResponse res = await api.searchGIF('universe', limit: 5);
+  /// TenorResponse? res = await api.searchGIF('universe', limit: 5);
   ///```
-  Future<TenorResponse> randomGIF(
+  Future<TenorResponse?> randomGIF(
     String search, {
     int limit = 20,
     ContentFilter contentFilter = ContentFilter.off,
     GifSize size = GifSize.all,
     MediaFilter mediaFilter = MediaFilter.minimal,
   }) async {
-    var url =
-        'https://g.tenor.com/v1/random?key=$apiKey&locale=$language&q=$search';
+    var url = 'https://g.tenor.com/v1/random?key=$apiKey&q=$search';
     return await _privateRequestGif(
       url,
       limit: limit,
@@ -96,8 +94,7 @@ class Tenor {
     String search, {
     int limit = 20,
   }) async {
-    var url =
-        'https://g.tenor.com/v1/search_suggestions?key=$apiKey&locale=$language&q=$search';
+    var url = 'https://g.tenor.com/v1/search_suggestions?key=$apiKey&q=$search';
     return await _requestSearchSuggestions(
       url,
       limit: limit,
@@ -113,8 +110,7 @@ class Tenor {
   Future<List<String>> trendingSearch({
     int limit = 20,
   }) async {
-    var url =
-        'https://g.tenor.com/v1/trending_terms?key=$apiKey&locale=$language';
+    var url = 'https://g.tenor.com/v1/trending_terms?key=$apiKey';
     return await _requestSearchSuggestions(
       url,
       limit: limit,
@@ -131,8 +127,7 @@ class Tenor {
     String search, {
     int limit = 20,
   }) async {
-    var url =
-        'https://g.tenor.com/v1/autocomplete?key=$apiKey&locale=$language&q=$search';
+    var url = 'https://g.tenor.com/v1/autocomplete?key=$apiKey&q=$search';
     return await _requestSearchSuggestions(
       url,
       limit: limit,
@@ -144,13 +139,13 @@ class Tenor {
   ///```dart
   /// var api = Tenor(apiKey: 'Tenor Api');
   ///
-  /// TenorCategories res = await api.requestCategories();
+  /// TenorCategories? res = await api.requestCategories();
   ///```
-  Future<List<TenorCategories>> requestCategories({
+  Future<List<TenorCategories?>> requestCategories({
     ContentFilter contentFilter = ContentFilter.off,
     CategoryType categoryType = CategoryType.featured,
   }) async {
-    var url = 'https://g.tenor.com/v1/categories?key=$apiKey&locale=$language';
+    var url = 'https://g.tenor.com/v1/categories?key=$apiKey';
     return await _requestTenorCategories(
       url,
       contentFilter: contentFilter,
@@ -162,6 +157,6 @@ class Tenor {
 extension _TenorString on String {
   String get enumVal {
     var list = split('.');
-    return list.isNotEmpty ? list.last : '';
+    return list.last;
   }
 }

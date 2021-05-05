@@ -38,7 +38,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  tenor: any
+  tenor:
 ```
 
 ### 2. Install it
@@ -78,7 +78,7 @@ Returns response containing a list of the current global trending GIFs. The tren
 Important: `limit`: `1 <= limit <= 50`
 
 ```dart
-// Future<TenorResponse> requestTrendingGIF({
+// Future<TenorResponse?> requestTrendingGIF({
 //   int limit = 20,
 //   ContentFilter contentFilter = ContentFilter.off,
 //   GifSize size = GifSize.all,
@@ -88,8 +88,8 @@ Important: `limit`: `1 <= limit <= 50`
 Tenor tenor = Tenor(apiKey: 'Tenor Api');
 
 // fetch trending Gif
-TenorResponse res = await tenor.requestTrendingGIF(limit: 5);
-res?.results?.forEach((TenorResult tenorResult) {
+TenorResponse? res = await tenor.requestTrendingGIF(limit: 5);
+res?.results.forEach((TenorResult tenorResult) {
   var title = tenorResult.title;
   var media = tenorResult.media;
   print('$title: gif : ${media?.gif?.previewUrl?.toString()}');
@@ -102,7 +102,7 @@ Returns response containing a list of the searched Gif from Tenor.
 Important: `limit`: `1 <= limit <= 50`
 
 ```dart
-// Future<TenorResponse> searchGIF(
+// Future<TenorResponse?> searchGIF(
 //   String search, {
 //   int limit = 20,
 //   ContentFilter contentFilter = ContentFilter.off,
@@ -114,7 +114,7 @@ Tenor tenor = Tenor(apiKey: 'Tenor Api');
 
 // search Gif
 TenorResponse? res = await tenor.searchGIF('universe', limit: 5);
-res?.results?.forEach((TenorResult tenorResult) {
+res?.results.forEach((TenorResult tenorResult) {
   var title = tenorResult.title;
   var media = tenorResult.media;
   print('$title: gif : ${media?.gif?.previewUrl?.toString()}');
@@ -127,7 +127,7 @@ Get a randomized list of GIFs for a given search term. This differs from the sea
 Important: `limit`: `1 <= limit <= 50`
 
 ```dart
-// Future<TenorResponse> randomGIF(
+// Future<TenorResponse?> randomGIF(
 //   String search, {
 //   int limit = 20,
 //   ContentFilter contentFilter = ContentFilter.off,
@@ -138,8 +138,8 @@ Important: `limit`: `1 <= limit <= 50`
 Tenor tenor = Tenor(apiKey: 'Tenor Api');
 
 // random Gif
-TenorResponse res = await tenor.randomGIF('universe', limit: 5);
-res?.results?.forEach((TenorResult tenorResult) {
+TenorResponse? res = await tenor.randomGIF('universe', limit: 5);
+res?.results.forEach((TenorResult tenorResult) {
   var title = tenorResult.title;
   var media = tenorResult.media;
   print('$title: gif : ${media?.gif?.previewUrl?.toString()}');
@@ -200,7 +200,7 @@ List<String> autoCompleted = await tenor.autoComplete('un', limit: 5);
 Requests `Categories` from tenor
 
 ```dart
-// Future<List<TenorCategories>> requestCategories({
+// Future<List<TenorCategories?>> requestCategories({
 //   ContentFilter contentFilter = ContentFilter.off,
 //   CategoryType categoryType = CategoryType.featured,
 // })
@@ -208,7 +208,7 @@ Requests `Categories` from tenor
 Tenor tenor = Tenor(apiKey: 'Tenor Api');
 
 // list of categories
-List<TenorCategories> categories = await tenor.requestCategories();
+List<TenorCategories?> categories = await tenor.requestCategories();
 ```
 
 <a href="https://paypal.me/kawal7415">  
@@ -230,15 +230,15 @@ key | description
 `fetchNext()` is used to get next set of response for the current query
 
 ```dart
-// Future<TenorResponse> fetchNext({int limit = 20});
+// Future<TenorResponse?> fetchNext({int limit = 20});
 
 // here the fetchNext function is used to call next set of GIF which is sequenced after current response
 
-TenorResponse firstSetResponse = await tenor.randomGIF('universe', limit: 5);
+TenorResponse? firstSetResponse = await tenor. /*.... Functions used to get TenorResponse? ....*/
 
-TenorResponse nextSetResponse = await firstSetResponse?.fetchNext();
+TenorResponse? nextResult = await firstSetResponse?.fetchNext();
 
-nextSetResponse?.results?.forEach((tenorResult) {
+nextResult?.results.forEach((tenorResult) {
   var title = tenorResult.title;
   var media = tenorResult.media;
   print('$title: gif : ${media?.gif?.previewUrl?.toString()}');
@@ -248,8 +248,11 @@ nextSetResponse?.results?.forEach((tenorResult) {
 key | description
 ------------ | -------------
  limit | eg. limit the number of GIF to be fetched. limit can vary from `1 to 50`
- 
 
-# [Donate on Paypal](https://paypal.me/kawal7415)
+# Donate
+ -  [A Mac M1 would be sufficient. 😆](https://www.apple.com/in/shop/buy-mac/macbook-air/space-grey-apple-m1-chip-with-8%E2%80%91core-cpu-and-8%E2%80%91core-gpu-512gb#)
+ -  Paypal: https://paypal.me/kawal7415
 
-## Thanks for d♥️nations, you are very kind hearted person 👌
+# What's next ? 🤔
+- We are thinking what we should give next after giving all these features. ( Your donation would help me to collect money to buy Mac M1 for faster work. ) 
+- If you have any new feature request then go ahead and ping me, I'll integrate it.

@@ -5,12 +5,12 @@ class TenorResult extends Equatable {
   bool hasCaption = false;
   bool hasaudio = false;
   int shares;
-  String id;
-  String title;
-  String created;
-  String url;
-  String itemurl;
-  TenorGif media;
+  String? id;
+  String? title;
+  String? created;
+  String? url;
+  String? itemurl;
+  TenorGif? media;
   TenorResult({
     this.hasCaption = false,
     this.hasaudio = false,
@@ -37,7 +37,7 @@ class TenorResult extends Equatable {
     };
   }
 
-  static TenorResult fromMap(Map<String, dynamic> map) {
+  static TenorResult? fromMap(Map<String, dynamic>? map) {
     if (map == null) return null;
     return TenorResult(
       hasCaption: map['hascaption'] ?? false,
@@ -57,7 +57,7 @@ class TenorResult extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  static TenorResult fromJson(String source) =>
+  static TenorResult? fromJson(String source) =>
       TenorResult.fromMap(json.decode(source));
 
   @override
@@ -66,6 +66,6 @@ class TenorResult extends Equatable {
   }
 
   @override
-  List<Object> get props =>
+  List<Object?> get props =>
       [hasCaption, hasaudio, shares, id, title, created, url, itemurl, media];
 }

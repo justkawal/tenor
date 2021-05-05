@@ -1,18 +1,6 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.8] - 2021-04-02
-### Improvements
-- Bug Fixes
-
-## [1.0.7] - 2021-04-01
-### Improvements
-- some improvements
-
-## [1.0.6] - 2021-04-01
-### Improvements
-- Non Null-Safe
-
 ## [1.0.6-null-safety] - 2021-03-14
 ### Improvements
 - Some improvements
