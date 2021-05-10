@@ -236,7 +236,7 @@ Note: To use `registerShare` It is important pass the `anon_id` and `language_ke
 
 For more info head to: https://tenor.com/gifapi/documentation#endpoints-registershare
 ```dart
-   String userId = 'Unique id for each user to personalize their experience on tenor.';
+   String userId = 'Anon_id generated from Tenor Server';
    
    Tenor tenor = Tenor(apiKey: 'ApiKey', language: TenorLanguage.English);
    
