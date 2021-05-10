@@ -5,8 +5,8 @@ import 'dart:io';
 int i = 0;
 void main() async {
   // replce 'ApiKey' with your own key -> 'You Own Api Key'
-  //var apiKey =File('/path to api key/apiKey').readAsStringSync();
-  var api = Tenor(apiKey: 'WVWVKIKO0J5W', language: TenorLanguage.English);
+  var apiKey = File('/path to api key/apiKey').readAsStringSync();
+  var api = Tenor(apiKey: '$apiKey', language: TenorLanguage.English);
 
   ///
   /// exmaple of searching of keyword on tenor
