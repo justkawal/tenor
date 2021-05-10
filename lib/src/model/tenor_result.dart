@@ -73,7 +73,7 @@ class TenorResult extends Equatable {
   /// For more info head to: https://tenor.com/gifapi/documentation#endpoints-registershare
   /// ```dart
   /// String userId = 'Unique id for each user to personalize their experience on tenor.';
-  /// Tenor tenor = Tenor(apiKey: 'ApiKey', language: TenorLanguage.English, anon_id: userId);
+  /// Tenor tenor = Tenor(apiKey: 'ApiKey', language: TenorLanguage.English);
   ///
   /// TenorResult tenorResultObject = ............;
   ///
