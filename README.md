@@ -87,7 +87,7 @@ Important: `limit`: `1 <= limit <= 50`
 ```dart
 // Future<TenorResponse?> requestTrendingGIF({
 //   int limit = 20,
-//   ContentFilter contentFilter = ContentFilter.off,
+//   ContentFilter contentFilter = ContentFilter.high,
 //   GifSize size = GifSize.all,
 //   MediaFilter mediaFilter = MediaFilter.minimal,
 // })
@@ -112,7 +112,7 @@ Important: `limit`: `1 <= limit <= 50`
 // Future<TenorResponse?> searchGIF(
 //   String search, {
 //   int limit = 20,
-//   ContentFilter contentFilter = ContentFilter.off,
+//   ContentFilter contentFilter = ContentFilter.high,
 //   GifSize size = GifSize.all,
 //   MediaFilter mediaFilter = MediaFilter.minimal,
 // })
@@ -137,7 +137,7 @@ Important: `limit`: `1 <= limit <= 50`
 // Future<TenorResponse?> randomGIF(
 //   String search, {
 //   int limit = 20,
-//   ContentFilter contentFilter = ContentFilter.off,
+//   ContentFilter contentFilter = ContentFilter.high,
 //   GifSize size = GifSize.all,
 //   MediaFilter mediaFilter = MediaFilter.minimal,
 // })
@@ -208,7 +208,7 @@ Requests `Categories` from tenor
 
 ```dart
 // Future<List<TenorCategories?>> requestCategories({
-//   ContentFilter contentFilter = ContentFilter.off,
+//   ContentFilter contentFilter = ContentFilter.high,
 //   CategoryType categoryType = CategoryType.featured,
 // })
 
@@ -261,5 +261,5 @@ key | description
  -  Paypal: https://paypal.me/kawal7415
 
 # What's next ? 🤔
-- We are thinking what we should give next after giving all these features. ( Your donation would help me to collect money to buy Mac M1 for faster work. ) 
+- We are thinking what we should give next after giving all these features. ( Your donation would help me to collect money to pay my rent. ) 
 - If you have any new feature request then go ahead and ping me, I'll integrate it.

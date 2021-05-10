@@ -4,13 +4,15 @@ part of tenor;
 class TenorResponse extends Equatable {
   List<TenorResult> results;
   String? next;
-  final String? url;
   ContentFilter contentFilter;
+  String? keys;
   MediaFilter mediaFilter;
+  EndPoint? endpoint;
   TenorResponse({
     required this.results,
     this.next,
-    this.url,
+    this.endpoint,
+    this.keys,
     this.contentFilter = ContentFilter.high,
     this.mediaFilter = MediaFilter.basic,
   });
@@ -24,14 +26,20 @@ class TenorResponse extends Equatable {
     };
   }
 
-  static TenorResponse? fromMap(Map<String, dynamic>? map, {String? urlNew}) {
+  static TenorResponse? fromMap(
+    Map<String, dynamic>? map, {
+    bool canShare = false,
+    EndPoint? endPoint,
+    String? keys,
+  }) {
     if (map == null) return null;
     return TenorResponse(
-      results: List<TenorResult>.from(
-          map['results']?.map((x) => TenorResult.fromMap(x)) ??
-              <TenorResult>[]),
+      results: List<TenorResult>.from(map['results']?.map(
+              (x) => TenorResult.fromMap(x, canShare: canShare, keys: keys)) ??
+          <TenorResult>[]),
       next: map['next'],
-      url: urlNew,
+      endpoint: endPoint,
+      keys: keys,
       contentFilter: map['contentFilter'] ?? ContentFilter.high,
       mediaFilter: map['mediaFilter'] ?? MediaFilter.basic,
     );
@@ -39,7 +47,11 @@ class TenorResponse extends Equatable {
 
   Future<TenorResponse?> fetchNext({int limit = 1}) {
     return _privateRequestGif(
-      url!,
+      /// this is done on purpose and has no effect, as I'am eventually ignoring it with helperUrl in the calling function
+      endpoint!,
+
+      /// keys are also emptied on purpose as it will not have any effect
+      keys!,
       limit: limit,
       contentFilter: null, // this is done on purpose
       size: null, // this is done on purpose
@@ -53,8 +65,10 @@ class TenorResponse extends Equatable {
   @override
   String toString() => 'TenorResponse(results: $results, next: $next)';
 
-  static TenorResponse? fromJson(String source) =>
-      TenorResponse.fromMap(json.decode(source));
+  static TenorResponse? fromJson(String source,
+          {bool canShare = false, String? keys}) =>
+      TenorResponse.fromMap(json.decode(source),
+          canShare: canShare, keys: keys);
 
   @override
   List<Object?> get props => [results];

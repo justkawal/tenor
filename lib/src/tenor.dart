@@ -4,31 +4,50 @@ class Tenor {
   final String apiKey;
   final String language;
 
-  Tenor({this.apiKey = '', this.language = 'en'});
+  Tenor({this.apiKey = '', this.language = 'en'}) {
+    assert(apiKey.trim() != '', 'Parameter apiKey should not be empty.');
+  }
 
   /// Returns response containing a list of the current global trending GIFs. The trending stream is updated regularly throughout the day.
   ///
-  /// Defaults: `contentFilter`: `ContentFilter.off`
+  /// You can also registerShare the gif sharing by calling `registerShare()` on the `TenorResult` Object
+  ///
+  /// For more info on registerShare: https://tenor.com/gifapi/documentation#endpoints-registershare
+  ///
+  /// For more info on randomGIF: https://tenor.com/gifapi/documentation#endpoints-trendinggifs
+  ///
+  /// Defaults: `contentFilter`: `ContentFilter.high`
   ///
   /// Defaults: `size` : `GifSize.all`
   ///
   /// Defaults: `mediaFilter` : `MediaFilter.minimal`
   ///
   ///```dart
-  /// var api = Tenor(apiKey: 'Tenor Api');
+  /// var tenorApi = Tenor(apiKey: 'Tenor Api');
   ///
-  /// TenorResponse? res = await api.requestTrendingGIF(limit: 5);
+  /// TenorResponse? res = await tenorApi.requestTrendingGIF(limit: 5);
   ///```
   Future<TenorResponse?> requestTrendingGIF({
     int limit = 20,
-    ContentFilter contentFilter = ContentFilter.off,
+    ContentFilter contentFilter = ContentFilter.high,
     GifSize size = GifSize.all,
     MediaFilter mediaFilter = MediaFilter.minimal,
+    String anon_id = '',
+    bool canRegisterShare = false,
   }) async {
-    var url = 'https://g.tenor.com/v1/trending?key=$apiKey&locale=$language';
+    var keys = '?key=$apiKey&locale=$language';
+
+    /// checking to canRegisterShare
+    if (canRegisterShare) {
+      assert(anon_id.trim() != '',
+          'As canRegisterShare is set to true, anon_id should not be null or empty.');
+      keys += '&anon_id=$anon_id';
+    }
     return await _privateRequestGif(
-      url,
+      EndPoint.trending,
+      keys,
       limit: limit,
+      canShare: canRegisterShare,
       contentFilter: contentFilter,
       mediaFilter: mediaFilter,
       pos: null,
@@ -37,23 +56,39 @@ class Tenor {
 
   /// Requests Gif from tenor
   ///
-  ///```dart
-  /// var api = Tenor(apiKey: 'Tenor Api');
+  /// You can also registerShare the gif sharing by calling `registerShare()` on the `TenorResult` Object
   ///
-  /// TenorResponse? res = await api.searchGIF('universe', limit: 5);
+  /// For more info on registerShare: https://tenor.com/gifapi/documentation#endpoints-registershare
+  ///
+  /// For more info on randomGIF: https://tenor.com/gifapi/documentation#endpoints-search
+  ///
+  ///```dart
+  /// var tenorApi = Tenor(apiKey: 'Tenor Api');
+  ///
+  /// TenorResponse? res = await tenorApi.searchGIF('universe', limit: 5);
   ///```
   Future<TenorResponse?> searchGIF(
     String search, {
     int limit = 20,
-    ContentFilter contentFilter = ContentFilter.off,
+    ContentFilter contentFilter = ContentFilter.high,
     GifSize size = GifSize.all,
     MediaFilter mediaFilter = MediaFilter.minimal,
+    String anon_id = '',
+    bool canRegisterShare = false,
   }) async {
-    var url =
-        'https://g.tenor.com/v1/search?key=$apiKey&locale=$language&q=$search';
+    var keys = '?key=$apiKey&locale=$language&q=$search';
+
+    /// checking to canRegisterShare
+    if (canRegisterShare) {
+      assert(anon_id.trim() != '',
+          'As canRegisterShare is set to true, anon_id should not be null or empty.');
+      keys += '&anon_id=$anon_id';
+    }
     return await _privateRequestGif(
-      url,
+      EndPoint.search,
+      keys,
       limit: limit,
+      canShare: canRegisterShare,
       contentFilter: contentFilter,
       size: size,
       mediaFilter: mediaFilter,
@@ -62,23 +97,40 @@ class Tenor {
   }
 
   /// Get a randomized list of GIFs for a given search term. This differs from the search endpoint which returns a rank ordered list of GIFs for a given search term.
+  ///
+  /// You can also registerShare the gif sharing by calling `registerShare()` on the `TenorResult` Object
+  ///
+  /// For more info on registerShare: https://tenor.com/gifapi/documentation#endpoints-registershare
+  ///
+  /// For more info on randomGIF: https://tenor.com/gifapi/documentation#endpoints-random
+  ///
   ///```dart
   ///
-  /// var api = Tenor(apiKey: 'Tenor Api');
-  /// TenorResponse? res = await api.searchGIF('universe', limit: 5);
+  /// var tenorApi = Tenor(apiKey: 'Tenor Api');
+  /// TenorResponse? res = await tenorApi.searchGIF('universe', limit: 5);
   ///```
   Future<TenorResponse?> randomGIF(
     String search, {
     int limit = 20,
-    ContentFilter contentFilter = ContentFilter.off,
+    ContentFilter contentFilter = ContentFilter.high,
     GifSize size = GifSize.all,
     MediaFilter mediaFilter = MediaFilter.minimal,
+    String anon_id = '',
+    bool canRegisterShare = false,
   }) async {
-    var url =
-        'https://g.tenor.com/v1/random?key=$apiKey&locale=$language&q=$search';
+    var keys = '?key=$apiKey&locale=$language&q=$search';
+
+    /// checking to canRegisterShare
+    if (canRegisterShare) {
+      assert(anon_id.trim() != '',
+          'As canRegisterShare is set to true, anon_id should not be null or empty.');
+      keys += '&anon_id=$anon_id';
+    }
     return await _privateRequestGif(
-      url,
+      EndPoint.random,
+      keys + '',
       limit: limit,
+      canShare: canRegisterShare,
       contentFilter: contentFilter,
       size: size,
       mediaFilter: mediaFilter,
@@ -87,75 +139,128 @@ class Tenor {
   }
 
   /// Search suggestions helps a user narrow their search or discover related search terms to find a more precise GIF. Results are returned in order of what is most likely to drive a share for a given term, based on historic user search and share behavior.
-  ///```dart
   ///
-  /// var api = Tenor(apiKey: 'Tenor Api');
-  /// List<String> suggestions = await api.searchSuggestions('un', limit: 5);
-  ///```
+  /// You can also registerShare this call by setting `automaticallyRegisterShare: true`
+  ///
+  /// For more info on registerShare: https://tenor.com/gifapi/documentation#endpoints-registershare
+  ///
+  /// ```dart
+  /// var tenorApi = Tenor(apiKey: 'Tenor Api');
+  /// List<String> suggestions = await tenorApi.searchSuggestions('un', limit: 5);
+  /// ```
   Future<List<String>> searchSuggestions(
     String search, {
     int limit = 20,
+    bool automaticallyRegisterShare = false,
+    String anon_id = '',
   }) async {
-    var url =
-        'https://g.tenor.com/v1/search_suggestions?key=$apiKey&locale=$language&q=$search';
+    var keys = '?key=$apiKey&locale=$language&q=$search';
+
+    if (automaticallyRegisterShare) {
+      assert(anon_id.trim() != '',
+          'To register share as automaticallyRegisterShare is set to true, anon_id should not be null or empty.');
+      keys += '&anon_id=$anon_id';
+      await _registerShareOperation(keys, '');
+    }
     return await _requestSearchSuggestions(
-      url,
+      EndPoint.search_suggestions,
+      keys,
       limit: limit,
     );
   }
 
   /// Returns response containing a list of the current trending search terms. The list is updated Hourly by Tenor’s AI.
-  /// ```dart
   ///
-  /// var api = Tenor(apiKey: 'Tenor Api');
-  /// List<String> trendingSearch = await api.trendingSearch(limit: 5);
+  /// For more info on trendingSearchTerm: https://tenor.com/gifapi/documentation#endpoints-trendingterms
+  ///
+  /// ```dart
+  /// var tenorApi = Tenor(apiKey: 'Tenor Api');
+  /// List<String> trendingSearch = await tenorApi.trendingSearch(limit: 5);
   ///```
   Future<List<String>> trendingSearch({
     int limit = 20,
   }) async {
-    var url =
-        'https://g.tenor.com/v1/trending_terms?key=$apiKey&locale=$language';
+    var keys = '?key=$apiKey&locale=$language';
     return await _requestSearchSuggestions(
-      url,
+      EndPoint.trending_terms,
+      keys,
       limit: limit,
     );
   }
 
   /// Returns response containing a list of completed search terms given a partial search term. The list is sorted by `Tenor’s AI` and the number of results will decrease as `Tenor’s AI` becomes more certain.
-  ///```dart
-  /// var api = Tenor(apiKey: 'Tenor Api');
   ///
-  /// List<String> autoCompletedItems = await api.autoComplete('un', limit: 5);
+  /// You can also registerShare this call by setting `automaticallyRegisterShare: true`
+  ///
+  /// For more info on registerShare: https://tenor.com/gifapi/documentation#endpoints-registershare
+  ///
+  /// ```dart
+  /// var tenorApi = Tenor(apiKey: 'Tenor Api');
+  ///
+  /// List<String> autoCompletedItems = await tenorApi.autoComplete('un', limit: 5);
   ///```
   Future<List<String>> autoComplete(
     String search, {
     int limit = 20,
+    bool automaticallyRegisterShare = false,
+    String anon_id = '',
   }) async {
-    var url =
-        'https://g.tenor.com/v1/autocomplete?key=$apiKey&locale=$language&q=$search';
+    var keys = '?key=$apiKey&locale=$language&q=$search';
+
+    /// checking to automaticallyRegisterShare
+    if (automaticallyRegisterShare) {
+      assert(anon_id.trim() != '',
+          'To register share as automaticallyRegisterShare is set to true, anon_id should not be null or empty.');
+      keys += '&anon_id=$anon_id';
+      await _registerShareOperation(keys, '');
+    }
     return await _requestSearchSuggestions(
-      url,
+      EndPoint.autocomplete,
+      keys,
       limit: limit,
     );
   }
 
   /// Requests `Categories` from tenor
   ///
-  ///```dart
-  /// var api = Tenor(apiKey: 'Tenor Api');
+  /// For more info on Categories: https://tenor.com/gifapi/documentation#endpoints-categories
   ///
-  /// TenorCategories? res = await api.requestCategories();
+  ///```dart
+  /// var tenorApi = Tenor(apiKey: 'Tenor Api');
+  ///
+  /// TenorCategories? res = await tenorApi.requestCategories();
   ///```
-  Future<List<TenorCategories?>> requestCategories({
-    ContentFilter contentFilter = ContentFilter.off,
-    CategoryType categoryType = CategoryType.featured,
-  }) async {
-    var url = 'https://g.tenor.com/v1/categories?key=$apiKey&locale=$language';
+  Future<List<TenorCategories?>> requestCategories(
+      {ContentFilter contentFilter = ContentFilter.high,
+      CategoryType categoryType = CategoryType.featured}) async {
+    var keys = '?key=$apiKey&locale=$language';
     return await _requestTenorCategories(
-      url,
+      EndPoint.categories,
+      keys,
       contentFilter: contentFilter,
       categoryType: categoryType,
     );
+  }
+
+  /// Requests `anon_id` from tenor
+  ///
+  /// Get an anonymous ID for a new user.
+  /// Store the ID in the client’s cache for use on any additional API calls made by the user, either in this session or any future sessions.
+  ///
+  /// Note: using anonymous ID to personalize API responses requires custom development.
+  ///
+  /// For more info on anon_id: https://tenor.com/gifapi/documentation#endpoints-anonymousid
+  ///
+  ///```dart
+  /// var tenorApi = Tenor(apiKey: 'Tenor Api');
+  ///
+  /// String? res = await tenorApi.generateAnonId();
+  ///```
+  Future<String?> generateAnonId() async {
+    var path = EndPoint.anonid.toString().enumVal + '?key=$apiKey';
+
+    var data = await _serverRequest(path);
+    return data['anon_id'];
   }
 }
 

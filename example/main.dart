@@ -5,14 +5,13 @@ import 'dart:io';
 int i = 0;
 void main() async {
   // replce 'ApiKey' with your own key -> 'You Own Api Key'
-  var apiKey =
-      File('/Users/kawal/Desktop/tenor/example/apiKey').readAsStringSync();
-  var api = Tenor(apiKey: '$apiKey', language: TenorLanguage.English);
+  //var apiKey =File('/path to api key/apiKey').readAsStringSync();
+  var api = Tenor(apiKey: 'WVWVKIKO0J5W', language: TenorLanguage.English);
 
   ///
   /// exmaple of searching of keyword on tenor
   ///
-
+  var anon_id = await api.generateAnonId();
   print(' Fetching 5 donate searched Gif ');
   var res = await api.searchGIF('donate', limit: 5);
   printTenorResponse(res);
@@ -25,8 +24,12 @@ void main() async {
   ///
 
   log('Fetching 5 Trending Gif');
-  res = await api.requestTrendingGIF(limit: 5);
-  printTenorResponse(res);
+  res = await api.requestTrendingGIF(limit: 5, anon_id: anon_id ?? '');
+  if (res?.results.isNotEmpty ?? false) {
+    var val = await res?.results.first.registerShare();
+    print(val.toString());
+  }
+  //printTenorResponse(res);
 
   /// next results
   log('Fetching Next 5 Resultsf');

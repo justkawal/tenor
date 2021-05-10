@@ -2,15 +2,18 @@ part of tenor;
 
 /// Request `Category`
 Future<List<TenorCategories?>> _requestTenorCategories(
-  String url, {
+  EndPoint endPoint,
+  String keys, {
   CategoryType categoryType = CategoryType.featured,
   ContentFilter contentFilter = ContentFilter.high,
 }) async {
-  url += '&contentfilter=' + contentFilter.toString().enumVal;
+  var path = (endPoint.toString().enumVal) +
+      '&contentfilter=' +
+      contentFilter.toString().enumVal +
+      '&type=' +
+      categoryType.toString().enumVal;
 
-  url += '&type=' + categoryType.toString().enumVal;
-
-  var data = await _serverRequest(url);
+  var data = await _serverRequest(path);
   var res = <TenorCategories?>[];
   if (data != null && data['tags'] != null) {
     data['tags'].forEach((tag) {

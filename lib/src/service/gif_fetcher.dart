@@ -2,35 +2,37 @@ part of tenor;
 
 /// Request Gif with `Search` parameter
 Future<TenorResponse?> _privateRequestGif(
-  String url, {
+  EndPoint endPoint,
+  String keys, {
+  bool canShare = false,
   int limit = 1,
-  ContentFilter? contentFilter = ContentFilter.off,
+  ContentFilter? contentFilter = ContentFilter.high,
   GifSize? size = GifSize.all,
   MediaFilter? mediaFilter = MediaFilter.minimal,
   String? pos,
 }) async {
-  // storing the temp url for fetching the next counts.
-  var tempUrl = url;
+  var path = (endPoint.toString().enumVal) + keys;
 
-  url += '&limit=${limit.clamp(1, 50)}';
+  path += '&limit=${limit.clamp(1, 50)}';
 
   if (contentFilter != null) {
-    url += '&contentfilter=' + contentFilter.toString().enumVal;
+    path += '&contentfilter=' + contentFilter.toString().enumVal;
   }
   if (mediaFilter != null) {
-    url += '&media_filter=' + mediaFilter.toString().enumVal;
+    path += '&media_filter=' + mediaFilter.toString().enumVal;
   }
   if (size != null) {
-    url += '&ar_range=' + size.toString().enumVal;
+    path += '&ar_range=' + size.toString().enumVal;
   }
   if (pos != null) {
-    url += '&pos=$pos';
+    path += '&pos=$pos';
   }
 
-  var data = await _serverRequest(url);
+  var data = await _serverRequest(path);
   TenorResponse? res;
   if (data != null && data.length > 0) {
-    res = TenorResponse.fromMap(data, urlNew: tempUrl);
+    res = TenorResponse.fromMap(data,
+        endPoint: endPoint, keys: keys, canShare: canShare);
   }
   return res;
 }
