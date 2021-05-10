@@ -257,7 +257,8 @@ key | description
  limit | eg. limit the number of GIF to be fetched. limit can vary from `1 to 50`
 
 # Donate
- -  [A Mac M1 would be sufficient. 😆](https://www.apple.com/in/shop/buy-mac/macbook-air/space-grey-apple-m1-chip-with-8%E2%80%91core-cpu-and-8%E2%80%91core-gpu-512gb#)
+ -  [Mac M1](https://www.apple.com/in/shop/buy-mac/macbook-air/space-grey-apple-m1-chip-with-8%E2%80%91core-cpu-and-8%E2%80%91core-gpu-512gb#)
+ -  Bitcoin💰: 15yUEaMJ9cLwhD3bnLtyKAj9GHtEKjgb9
  -  Paypal: https://paypal.me/kawal7415
 
 # What's next ? 🤔
