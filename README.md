@@ -306,7 +306,6 @@ key | description
 
 # Donate
  -  [Mac M1](https://www.apple.com/in/shop/buy-mac/macbook-air/space-grey-apple-m1-chip-with-8%E2%80%91core-cpu-and-8%E2%80%91core-gpu-512gb#)
- -  Bitcoin💰: 15yUEaMJ9cLwhD3bnLtyKAj9GHtEKjgb9
  -  Paypal: https://paypal.me/kawal7415
 
 # What's next ? 🤔
