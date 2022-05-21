@@ -8,6 +8,7 @@ Future<List<TenorCategories?>> _requestTenorCategories(
   ContentFilter contentFilter = ContentFilter.high,
 }) async {
   var path = (endPoint.toString().enumVal) +
+      keys +
       '&contentfilter=' +
       contentFilter.toString().enumVal +
       '&type=' +
