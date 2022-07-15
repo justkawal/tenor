@@ -24,7 +24,7 @@
   
 
 ### Fetch, Search GIF more easily and customised manner from [Tenor](https://www.pub.dev/packages/tenor)
-### This library is MIT licensed, which means you can use it anywhere without any consent from [justkawal](https://github.com/justkawal), because we believe in [Open-Source](https://paypal.me/kawal7415)
+### This library is MIT licensed, which means you can use it anywhere without any consent from [justkawal](https://github.com/justkawal).
 
 # Table of Contents
   - [Installing](#lets-get-started)
@@ -38,7 +38,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  tenor:
+  tenor: ^2.0.0
 ```
 
 ### 2. Install it
@@ -274,11 +274,11 @@ List<TenorCategories?> categories = await tenor.requestCategories();
 
 ### Fetching Options
 key | description
------------- | -------------
- limit | eg. limit the number of GIF to be fetched. limit can vary from `1 to 50`
+-------------- | -------------
+ limit         | eg. limit the number of GIF to be fetched. limit can vary from `1 to 50`
  contentFilter | (values: `off`, `low`, `medium`, `high`) specify the content safety filter level. eg. `contentFilter: ContentFilter.low`
- mediaFilter | (values: `basic`, `minimal`) Reduce the Number of GIF formats returned in response. `minimal- (tinygif, gif, and mp4)`.  `basic- (nanomp4, tinygif, tinymp4, gif, mp4, and nanogif)` eg. `mediaFilter: MediaFilter.minimal` 
- size | GIFs with `aspect ratios` that fit with in the selected range. values: (`all`, `wide`, `standard`), `all` - no constraints, `wide` - 0.42 <= aspect ratio <= 2.36, `standard` - .56 <= aspect ratio <= 1.78
+ mediaFilter   | (values: `basic`, `minimal`) Reduce the Number of GIF formats returned in response. `minimal- (tinygif, gif, and mp4)`.  `basic- (nanomp4, tinygif, tinymp4, gif, mp4, and nanogif)` eg. `mediaFilter: MediaFilter.minimal` 
+ size          | GIFs with `aspect ratios` that fit with in the selected range. values: (`all`, `wide`, `standard`), `all` - no constraints, `wide` - 0.42 <= aspect ratio <= 2.36, `standard` - .56 <= aspect ratio <= 1.78
 
 
 ## Fetch Next Set of GIF Response
