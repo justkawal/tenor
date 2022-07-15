@@ -305,9 +305,10 @@ key | description
  limit | eg. limit the number of GIF to be fetched. limit can vary from `1 to 50`
 
 # Donate
- -  [Mac M1](https://www.apple.com/in/shop/buy-mac/macbook-air/space-grey-apple-m1-chip-with-8%E2%80%91core-cpu-and-8%E2%80%91core-gpu-512gb#)
+ -  Your donation would help me to pay my college fees.
+ -  [Mac M2](https://www.apple.com)
  -  Paypal: https://paypal.me/kawal7415
 
 # What's next ? 🤔
-- We are thinking what we should give next after giving all these features. ( Your donation would help me to collect money to pay my rent. ) 
+- We are thinking what we should give next after giving all these features.
 - If you have any new feature request then go ahead and ping me, I'll integrate it.
