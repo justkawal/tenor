@@ -305,8 +305,8 @@ key | description
  limit | eg. limit the number of GIF to be fetched. limit can vary from `1 to 50`
 
 # Donate
- -  Your donation would help me to pay my college fees.
- -  [Mac M2](https://www.apple.com)
+ -  Your donation would help me to pay my college fees @ [ Fleming College, Canada ].
+ -  [Mac](https://www.apple.com)
  -  Paypal: https://paypal.me/kawal7415
 
 # What's next ? 🤔
