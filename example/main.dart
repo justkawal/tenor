@@ -11,7 +11,6 @@ void main() async {
   ///
   /// exmaple of searching of keyword on tenor
   ///
-  var anon_id = await api.generateAnonId();
   print(' Fetching 5 donate searched Gif ');
   var res = await api.searchGIF('donate', limit: 5);
   printTenorResponse(res);
@@ -24,7 +23,7 @@ void main() async {
   ///
 
   log('Fetching 5 Trending Gif');
-  res = await api.requestTrendingGIF(limit: 5, anon_id: anon_id ?? '');
+  res = await api.requestTrendingGIF(limit: 5);
   if (res?.results.isNotEmpty ?? false) {
     var val = await res?.results.first.registerShare();
     print(val.toString());

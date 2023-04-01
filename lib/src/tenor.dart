@@ -3,10 +3,16 @@ part of tenor;
 class Tenor {
   final String apiKey;
   final String language;
+  final String? client_key;
 
-  Tenor({this.apiKey = '', this.language = 'en'}) {
-    assert(apiKey.trim() != '', 'Parameter apiKey should not be empty.');
-  }
+  Tenor({required this.apiKey, this.language = 'en', this.client_key})
+      : assert(apiKey.trim() != '', 'Parameter apiKey should not be empty.'),
+
+        // making key
+        _key = '?key=$apiKey&locale=$language' +
+            (client_key != null ? '&client_key=$client_key' : '');
+
+  late final String _key;
 
   /// Returns response containing a list of the current global trending GIFs. The trending stream is updated regularly throughout the day.
   ///
@@ -32,20 +38,11 @@ class Tenor {
     ContentFilter contentFilter = ContentFilter.high,
     GifSize size = GifSize.all,
     MediaFilter mediaFilter = MediaFilter.minimal,
-    String anon_id = '',
     bool canRegisterShare = false,
   }) async {
-    var keys = '?key=$apiKey&locale=$language';
-
-    /// checking to canRegisterShare
-    if (canRegisterShare) {
-      assert(anon_id.trim() != '',
-          'As canRegisterShare is set to true, anon_id should not be null or empty.');
-      keys += '&anon_id=$anon_id';
-    }
     return await _privateRequestGif(
       EndPoint.trending,
-      keys,
+      _key,
       limit: limit,
       canShare: canRegisterShare,
       contentFilter: contentFilter,
@@ -73,18 +70,10 @@ class Tenor {
     ContentFilter contentFilter = ContentFilter.high,
     GifSize size = GifSize.all,
     MediaFilter mediaFilter = MediaFilter.minimal,
-    String anon_id = '',
     bool canRegisterShare = false,
     String? pos,
   }) async {
-    var keys = '?key=$apiKey&locale=$language&q=$search';
-
-    /// checking to canRegisterShare
-    if (canRegisterShare) {
-      assert(anon_id.trim() != '',
-          'As canRegisterShare is set to true, anon_id should not be null or empty.');
-      keys += '&anon_id=$anon_id';
-    }
+    var keys = '$_key&q=$search';
     return await _privateRequestGif(
       EndPoint.search,
       keys,
@@ -116,17 +105,9 @@ class Tenor {
     ContentFilter contentFilter = ContentFilter.high,
     GifSize size = GifSize.all,
     MediaFilter mediaFilter = MediaFilter.minimal,
-    String anon_id = '',
     bool canRegisterShare = false,
   }) async {
-    var keys = '?key=$apiKey&locale=$language&q=$search';
-
-    /// checking to canRegisterShare
-    if (canRegisterShare) {
-      assert(anon_id.trim() != '',
-          'As canRegisterShare is set to true, anon_id should not be null or empty.');
-      keys += '&anon_id=$anon_id';
-    }
+    var keys = '$_key&q=$search';
     return await _privateRequestGif(
       EndPoint.random,
       keys + '',
@@ -153,14 +134,10 @@ class Tenor {
     String search, {
     int limit = 20,
     bool automaticallyRegisterShare = false,
-    String anon_id = '',
   }) async {
-    var keys = '?key=$apiKey&locale=$language&q=$search';
+    var keys = '$_key&q=$search';
 
     if (automaticallyRegisterShare) {
-      assert(anon_id.trim() != '',
-          'To register share as automaticallyRegisterShare is set to true, anon_id should not be null or empty.');
-      keys += '&anon_id=$anon_id';
       await _registerShareOperation(keys, '');
     }
     return await _requestSearchSuggestions(
@@ -181,10 +158,9 @@ class Tenor {
   Future<List<String>> trendingSearch({
     int limit = 20,
   }) async {
-    var keys = '?key=$apiKey&locale=$language';
     return await _requestSearchSuggestions(
       EndPoint.trending_terms,
-      keys,
+      _key,
       limit: limit,
     );
   }
@@ -204,15 +180,11 @@ class Tenor {
     String search, {
     int limit = 20,
     bool automaticallyRegisterShare = false,
-    String anon_id = '',
   }) async {
-    var keys = '?key=$apiKey&locale=$language&q=$search';
+    var keys = '$_key&q=$search';
 
     /// checking to automaticallyRegisterShare
     if (automaticallyRegisterShare) {
-      assert(anon_id.trim() != '',
-          'To register share as automaticallyRegisterShare is set to true, anon_id should not be null or empty.');
-      keys += '&anon_id=$anon_id';
       await _registerShareOperation(keys, '');
     }
     return await _requestSearchSuggestions(
@@ -234,34 +206,12 @@ class Tenor {
   Future<List<TenorCategories?>> requestCategories(
       {ContentFilter contentFilter = ContentFilter.high,
       CategoryType categoryType = CategoryType.featured}) async {
-    var keys = '?key=$apiKey&locale=$language';
     return await _requestTenorCategories(
       EndPoint.categories,
-      keys,
+      _key,
       contentFilter: contentFilter,
       categoryType: categoryType,
     );
-  }
-
-  /// Requests `anon_id` from tenor
-  ///
-  /// Get an anonymous ID for a new user.
-  /// Store the ID in the client’s cache for use on any additional API calls made by the user, either in this session or any future sessions.
-  ///
-  /// Note: using anonymous ID to personalize API responses requires custom development.
-  ///
-  /// For more info on anon_id: https://tenor.com/gifapi/documentation#endpoints-anonymousid
-  ///
-  ///```dart
-  /// var tenorApi = Tenor(apiKey: 'Tenor Api');
-  ///
-  /// String? res = await tenorApi.generateAnonId();
-  ///```
-  Future<String?> generateAnonId() async {
-    var path = EndPoint.anonid.toString().enumVal + '?key=$apiKey';
-
-    var data = await _serverRequest(path);
-    return data['anon_id'];
   }
 }
 

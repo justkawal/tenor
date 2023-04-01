@@ -67,7 +67,7 @@ class TenorResult extends Equatable {
   ///
   /// As Tenor’s service evolves, it will be used to better tune search results to your users’ specific languages, cultures, and social trends.
   ///
-  /// Note: To use `registerShare` It is important pass the `anon_id` and `language_key` on the tenor api initialization.
+  /// Note: To use `registerShare` It is important pass the `language_key` on the tenor api initialization.
   ///
   ///
   /// For more info head to: https://tenor.com/gifapi/documentation#endpoints-registershare
@@ -96,8 +96,8 @@ class TenorResult extends Equatable {
       if (result.toLowerCase() == 'ok') {
         return 'ok';
       }
-      return null;
     }
+    return null;
   }
 
   String toJson() => json.encode(toMap());

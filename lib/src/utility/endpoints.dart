@@ -1,9 +1,8 @@
 part of tenor;
 
-const _tenorBaseUrl = 'https://g.tenor.com/v1/';
+const _tenorBaseUrl = 'https://tenor.googleapis.com/v2/';
 
 enum EndPoint {
-  anonid,
   autocomplete,
   categories,
   random,

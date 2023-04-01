@@ -78,21 +78,6 @@ TenorLanguage provides codes for different `ISO 639-1 language code`
 var englishCode = TenorLanguage.English;
 ```
 
-## Generating the Anonymous Id
-Requests `anon_id` from tenor
-
-Get an anonymous ID for a new user.
-
-Store the ID in the client’s cache for use on any additional API calls made by the user, either in this session or any future sessions.
-
-Note: using anonymous ID to personalize API responses requires custom development.
-
-For more info on anon_id: https://tenor.com/gifapi/documentation#endpoints-anonymousid
-```dart
-var tenorApi = Tenor(apiKey: 'Tenor Api');
-String? res = await tenorApi.generateAnonId();
-```
-
 ## Fetch Trending GIF
 Returns response containing a list of the current global trending GIFs. The trending stream is updated regularly throughout the day.
 
@@ -104,7 +89,6 @@ Important: `limit`: `1 <= limit <= 50`
 //   ContentFilter contentFilter = ContentFilter.high,
 //   GifSize size = GifSize.all,
 //   MediaFilter mediaFilter = MediaFilter.minimal,
-//   String anon_id = '',
 //   bool canRegisterShare = false,
 // })
 
@@ -131,7 +115,6 @@ Important: `limit`: `1 <= limit <= 50`
 //   ContentFilter contentFilter = ContentFilter.high,
 //   GifSize size = GifSize.all,
 //   MediaFilter mediaFilter = MediaFilter.minimal,
-//   String anon_id = '',
 //   bool canRegisterShare = false,
 // })
 
@@ -158,7 +141,6 @@ Important: `limit`: `1 <= limit <= 50`
 //   ContentFilter contentFilter = ContentFilter.high,
 //   GifSize size = GifSize.all,
 //   MediaFilter mediaFilter = MediaFilter.minimal,
-//   String anon_id = '',
 //   bool canRegisterShare = false,
 // })
 
@@ -183,7 +165,6 @@ Important: `limit`: `1 <= limit <= 50`
 //   String search, {
 //   int limit = 20,
 //   bool automaticallyRegisterShare = false,
-//   String anon_id = '',
 // })
 
 Tenor tenor = Tenor(apiKey: 'Tenor Api');
@@ -218,7 +199,6 @@ Important: `limit`: `1 <= limit <= 50`
 //   String search, {
 //   int limit = 20,
 //   bool automaticallyRegisterShare = false,
-//   String anon_id = '',
 // })
 
 Tenor tenor = Tenor(apiKey: 'Tenor Api');
@@ -232,12 +212,10 @@ This helps further tune Tenor’s Search Engine AI, helping users more easily fi
 
 As Tenor’s service evolves, it will be used to better tune search results to your users’ specific languages, cultures, and social trends.
 
-Note: To use `registerShare` It is important pass the `anon_id` and `language_key` on the tenor api initialization.
+Note: To use `registerShare` It is important pass the `language_key` on the tenor api initialization.
 
 For more info head to: https://tenor.com/gifapi/documentation#endpoints-registershare
 ```dart
-   String userId = 'Anon_id generated from Tenor Server';
-   
    Tenor tenor = Tenor(apiKey: 'ApiKey', language: TenorLanguage.English);
    
    TenorResult tenorResultObject = ............;
