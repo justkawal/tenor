@@ -6,10 +6,9 @@ Future<List<String>> _requestSearchSuggestions(
   String keys, {
   int limit = 1,
 }) async {
-  var path =
-      endPoint.toString().enumVal + keys + '&limit=${limit.clamp(1, 50)}';
+  final path = '${endPoint.name}$keys&limit=${limit.clamp(1, 50)}';
 
-  var data = await _serverRequest(path);
+  final data = await _serverRequest(path);
   if (data != null && data.isNotEmpty) {
     return (data['results'] as List).map((e) => '$e').toList();
   }

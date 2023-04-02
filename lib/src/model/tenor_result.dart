@@ -2,18 +2,18 @@ part of tenor;
 
 // ignore: must_be_immutable
 class TenorResult extends Equatable {
-  bool hasCaption = false;
-  bool hasaudio = false;
-  bool canShare = false;
-  int shares;
-  String? id;
-  String? keys;
-  String? title;
-  String? created;
-  String? url;
-  String? itemurl;
-  TenorGif? media;
-  TenorResult({
+  final bool hasCaption;
+  final bool hasaudio;
+  final bool canShare;
+  final int shares;
+  final String? id;
+  final String? keys;
+  final String? title;
+  final String? created;
+  final String? url;
+  final String? itemurl;
+  final TenorGif? media;
+  const TenorResult({
     this.canShare = false,
     this.created,
     this.hasaudio = false,
@@ -42,9 +42,8 @@ class TenorResult extends Equatable {
     };
   }
 
-  static TenorResult? fromMap(Map<String, dynamic>? map,
+  static TenorResult fromMap(Map<String, dynamic> map,
       {bool canShare = false, String? keys}) {
-    if (map == null) return null;
     return TenorResult(
       hasCaption: map['hascaption'] ?? false,
       hasaudio: map['hasaudio'] ?? false,
@@ -92,7 +91,7 @@ class TenorResult extends Equatable {
       return null;
     }
     if (canShare) {
-      var result = await _registerShareOperation(keys!, id!);
+      final result = await _registerShareOperation(keys!, id!);
       if (result.toLowerCase() == 'ok') {
         return 'ok';
       }
@@ -102,7 +101,7 @@ class TenorResult extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  static TenorResult? fromJson(String source,
+  static TenorResult fromJson(String source,
           {bool canShare = false, String? keys}) =>
       TenorResult.fromMap(json.decode(source), canShare: canShare, keys: keys);
 

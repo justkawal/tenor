@@ -2,12 +2,12 @@ part of tenor;
 
 // ignore: must_be_immutable
 class GifTypes extends Equatable {
-  String? url;
-  String? previewUrl;
-  int? size;
-  List<int>? dims;
-  double? duration;
-  GifTypes({
+  final String? url;
+  final String? previewUrl;
+  final int? size;
+  final List<int>? dims;
+  final double? duration;
+  const GifTypes({
     this.url,
     this.previewUrl,
     this.size,
@@ -25,8 +25,7 @@ class GifTypes extends Equatable {
     };
   }
 
-  static GifTypes? fromMap(Map<String, dynamic>? map) {
-    if (map == null) return null;
+  static GifTypes fromMap(Map<String, dynamic> map) {
     return GifTypes(
       url: map['url'],
       previewUrl: map['preview'],
@@ -39,7 +38,7 @@ class GifTypes extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  static GifTypes? fromJson(String source) =>
+  static GifTypes fromJson(String source) =>
       GifTypes.fromMap(json.decode(source));
 
   @override

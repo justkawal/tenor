@@ -9,8 +9,8 @@ class Tenor {
       : assert(apiKey.trim() != '', 'Parameter apiKey should not be empty.'),
 
         // making key
-        _key = '?key=$apiKey&locale=$language' +
-            (client_key != null ? '&client_key=$client_key' : '');
+        _key =
+            '?key=$apiKey&locale=$language${client_key != null ? '&client_key=$client_key' : ''}';
 
   late final String _key;
 
@@ -37,7 +37,7 @@ class Tenor {
     int limit = 20,
     ContentFilter contentFilter = ContentFilter.high,
     GifSize size = GifSize.all,
-    MediaFilter mediaFilter = MediaFilter.minimal,
+    List<MediaFilter> mediaFilter = MediaFilter.values,
     bool canRegisterShare = false,
   }) async {
     return await _privateRequestGif(
@@ -67,17 +67,20 @@ class Tenor {
   Future<TenorResponse?> searchGIF(
     String search, {
     int limit = 20,
+    SearchFilter searchFilter = SearchFilter.gif,
     ContentFilter contentFilter = ContentFilter.high,
     GifSize size = GifSize.all,
-    MediaFilter mediaFilter = MediaFilter.minimal,
+    List<MediaFilter> mediaFilter = MediaFilter.values,
     bool canRegisterShare = false,
+    bool random = false,
     String? pos,
   }) async {
-    var keys = '$_key&q=$search';
     return await _privateRequestGif(
       EndPoint.search,
-      keys,
+      '$_key&q=$search',
       limit: limit,
+      random: random,
+      searchFilter: searchFilter,
       canShare: canRegisterShare,
       contentFilter: contentFilter,
       size: size,
@@ -86,7 +89,7 @@ class Tenor {
     );
   }
 
-  /// Get a randomized list of GIFs for a given search term. This differs from the search endpoint which returns a rank ordered list of GIFs for a given search term.
+/*   /// Get a randomized list of GIFs for a given search term. This differs from the search endpoint which returns a rank ordered list of GIFs for a given search term.
   ///
   /// You can also registerShare the gif sharing by calling `registerShare()` on the `TenorResult` Object
   ///
@@ -104,13 +107,13 @@ class Tenor {
     int limit = 20,
     ContentFilter contentFilter = ContentFilter.high,
     GifSize size = GifSize.all,
-    MediaFilter mediaFilter = MediaFilter.minimal,
+    List<MediaFilter> mediaFilter = MediaFilter.values,
     bool canRegisterShare = false,
   }) async {
-    var keys = '$_key&q=$search';
+    final keys = '$_key&q=$search';
     return await _privateRequestGif(
       EndPoint.random,
-      keys + '',
+      keys,
       limit: limit,
       canShare: canRegisterShare,
       contentFilter: contentFilter,
@@ -118,7 +121,7 @@ class Tenor {
       mediaFilter: mediaFilter,
       pos: null,
     );
-  }
+  } */
 
   /// Search suggestions helps a user narrow their search or discover related search terms to find a more precise GIF. Results are returned in order of what is most likely to drive a share for a given term, based on historic user search and share behavior.
   ///
@@ -135,7 +138,7 @@ class Tenor {
     int limit = 20,
     bool automaticallyRegisterShare = false,
   }) async {
-    var keys = '$_key&q=$search';
+    final keys = '$_key&q=$search';
 
     if (automaticallyRegisterShare) {
       await _registerShareOperation(keys, '');
@@ -181,7 +184,7 @@ class Tenor {
     int limit = 20,
     bool automaticallyRegisterShare = false,
   }) async {
-    var keys = '$_key&q=$search';
+    final keys = '$_key&q=$search';
 
     /// checking to automaticallyRegisterShare
     if (automaticallyRegisterShare) {
@@ -212,12 +215,5 @@ class Tenor {
       contentFilter: contentFilter,
       categoryType: categoryType,
     );
-  }
-}
-
-extension _TenorString on String {
-  String get enumVal {
-    var list = split('.');
-    return list.last;
   }
 }

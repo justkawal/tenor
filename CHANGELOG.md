@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2023-04-23
+### Improvements
+- Migrate to V2
+
 ## [1.0.9] - 2021-05-05
 ### Improvements
 - Language Code addition

@@ -7,15 +7,11 @@ Future<List<TenorCategories?>> _requestTenorCategories(
   CategoryType categoryType = CategoryType.featured,
   ContentFilter contentFilter = ContentFilter.high,
 }) async {
-  var path = (endPoint.toString().enumVal) +
-      keys +
-      '&contentfilter=' +
-      contentFilter.toString().enumVal +
-      '&type=' +
-      categoryType.toString().enumVal;
+  final path =
+      '${endPoint.name}$keys&contentfilter=${contentFilter.name}&type=${categoryType.name}';
 
-  var data = await _serverRequest(path);
-  var res = <TenorCategories?>[];
+  final data = await _serverRequest(path);
+  final res = <TenorCategories?>[];
   if (data != null && data['tags'] != null) {
     data['tags'].forEach((tag) {
       res.add(TenorCategories.fromMap(tag));

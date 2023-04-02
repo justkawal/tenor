@@ -24,7 +24,7 @@
   
 
 ### Fetch, Search GIF more easily and customised manner from [Tenor](https://www.pub.dev/packages/tenor)
-### This library is MIT licensed, which means you can use it anywhere without any consent from [justkawal](https://github.com/justkawal).
+### This library is MIT licensed, which means you can use it anywhere without any consent.
 
 # Table of Contents
   - [Installing](#lets-get-started)
@@ -282,11 +282,11 @@ key | description
 ------------ | -------------
  limit | eg. limit the number of GIF to be fetched. limit can vary from `1 to 50`
 
-# Donate
- -  Your donation would help me to pay my college fees @ [ Fleming College, Canada ].
- -  [Mac](https://www.apple.com)
- -  Paypal: https://paypal.me/kawal7415
+# Donate 🙏
 
-# What's next ? 🤔
-- We are thinking what we should give next after giving all these features.
-- If you have any new feature request then go ahead and ping me, I'll integrate it.
+
+# License
+```
+MIT License
+Copyright (c) 2023 Kawaljeet Singh
+```

@@ -1,15 +1,13 @@
 name: tenor
 description: Fetch, Search Tenor Gifs on dart client and server + on Flutter. Request for popular suggestions or categories amoung users around the world.
-version: 1.0.9
+version: 2.0.0
 homepage: https://github.com/justkawal/tenor
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.17.0 <4.0.0'
 
 dependencies:
-  collection: ^1.15.0
-  universal_io: ^2.0.0-nullsafety.2
   equatable: ^2.0.0
 
 dev_dependencies:
-  pedantic: 1.11.0
+  lints: ^2.0.1

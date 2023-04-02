@@ -2,13 +2,13 @@ part of tenor;
 
 // ignore: must_be_immutable
 class TenorGif extends Equatable {
-  GifTypes? nanomp4;
-  GifTypes? tinygif;
-  GifTypes? tinymp4;
-  GifTypes? gif;
-  GifTypes? mp4;
-  GifTypes? nanogif;
-  TenorGif({
+  final GifTypes? nanomp4;
+  final GifTypes? tinygif;
+  final GifTypes? tinymp4;
+  final GifTypes? gif;
+  final GifTypes? mp4;
+  final GifTypes? nanogif;
+  const TenorGif({
     this.nanomp4,
     this.tinygif,
     this.tinymp4,
@@ -28,8 +28,7 @@ class TenorGif extends Equatable {
     };
   }
 
-  static TenorGif? fromMap(Map<String, dynamic>? map) {
-    if (map == null) return null;
+  static TenorGif fromMap(Map<String, dynamic> map) {
     return TenorGif(
       nanomp4: GifTypes.fromMap(map['nanomp4']),
       tinygif: GifTypes.fromMap(map['tinygif']),
@@ -42,7 +41,7 @@ class TenorGif extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  static TenorGif? fromJson(String source) =>
+  static TenorGif fromJson(String source) =>
       TenorGif.fromMap(json.decode(source));
 
   @override

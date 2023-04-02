@@ -2,30 +2,16 @@ part of tenor;
 
 // ignore: must_be_immutable
 class TenorCategories extends Equatable {
-  String? searchTerm;
-  String? path;
-  String? image;
-  String? name;
-  TenorCategories({
+  final String? searchTerm;
+  final String? path;
+  final String? image;
+  final String? name;
+  const TenorCategories({
     this.searchTerm,
     this.path,
     this.image,
     this.name,
   });
-
-  TenorCategories copyWith({
-    String? searchTerm,
-    String? path,
-    String? image,
-    String? name,
-  }) {
-    return TenorCategories(
-      searchTerm: searchTerm ?? this.searchTerm,
-      path: path ?? this.path,
-      image: image ?? this.image,
-      name: name ?? this.name,
-    );
-  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -35,8 +21,7 @@ class TenorCategories extends Equatable {
     };
   }
 
-  static TenorCategories? fromMap(Map<String, dynamic>? map) {
-    if (map == null) return null;
+  static TenorCategories fromMap(Map<String, dynamic> map) {
     return TenorCategories(
       searchTerm: map['searchterm'],
       path: map['path'],
@@ -45,7 +30,7 @@ class TenorCategories extends Equatable {
     );
   }
 
-  static TenorCategories? fromJson(String source) =>
+  static TenorCategories fromJson(String source) =>
       TenorCategories.fromMap(json.decode(source));
 
   @override

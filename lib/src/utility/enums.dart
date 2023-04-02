@@ -1,5 +1,27 @@
 part of tenor;
 
+enum SearchFilter {
+  ///
+  /// returns only GIF content.
+  gif._(''),
+
+  ///
+  /// returns both static and animated sticker content.
+  sticker._('sticker'),
+
+  ///
+  /// returns only animated sticker content.
+  animated_sticker._('sticker,-static'),
+
+  ///
+  /// returns only static sticker content.
+  static_sticker._('sticker,static');
+
+  final String name;
+
+  const SearchFilter._(this.name);
+}
+
 /// determines the type of categories returned
 ///
 /// values: (featured | emoji | trending)
