@@ -33,7 +33,7 @@ class Tenor {
   ///
   /// TenorResponse? res = await tenorApi.requestTrendingGIF(limit: 5);
   ///```
-  Future<TenorResponse?> requestTrendingGIF({
+  /* Future<TenorResponse?> requestTrendingGIF({
     int limit = 20,
     ContentFilter contentFilter = ContentFilter.high,
     GifSize size = GifSize.all,
@@ -49,13 +49,9 @@ class Tenor {
       mediaFilter: mediaFilter,
       pos: null,
     );
-  }
+  } */
 
   /// Requests Gif from tenor
-  ///
-  /// You can also registerShare the gif sharing by calling `registerShare()` on the `TenorResult` Object
-  ///
-  /// For more info on registerShare: https://tenor.com/gifapi/documentation#endpoints-registershare
   ///
   /// For more info on randomGIF: https://tenor.com/gifapi/documentation#endpoints-search
   ///
