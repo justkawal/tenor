@@ -2,50 +2,53 @@ part of tenor;
 
 // ignore: must_be_immutable
 class GifTypes extends Equatable {
-  final String? url;
-  final String? previewUrl;
-  final int? size;
-  final List<int>? dims;
-  final double? duration;
+  /// A URL to the media source
+  final String url;
+
+  /// Size of the file in bytes
+  final List<int> dims;
+
+  /// Represents the time in seconds for one loop of the content. If the content is static, the duration is set to 0.
+  final double duration;
+
+  /// Size of the file in bytes
+  final int size;
   const GifTypes({
-    this.url,
-    this.previewUrl,
-    this.size,
-    this.dims,
-    this.duration,
+    required this.url,
+    required this.dims,
+    required this.duration,
+    required this.size,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'url': url,
-      'preview': previewUrl,
-      'size': size,
       'dims': dims,
       'duration': duration,
+      'size': size,
     };
   }
 
-  static GifTypes fromMap(Map<String, dynamic> map) {
+  static GifTypes? fromMap(Map<String, dynamic>? map) {
+    if (map == null) return null;
     return GifTypes(
       url: map['url'],
-      previewUrl: map['preview'],
+      dims: List<int>.from(map['dims'] ?? <int>[], growable: false),
+      duration: map['duration'] + .0,
       size: map['size'],
-      dims: List<int>.from(map['dims'] ?? <int>[]),
-      duration:
-          map['duration'] != null ? map['duration'] + .0 : map['duration'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  static GifTypes fromJson(String source) =>
+  static GifTypes? fromJson(String source) =>
       GifTypes.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'GifTypes(url: $url, previewUrl: $previewUrl, size: $size, dims: $dims, duration: $duration)';
+    return 'GifTypes(url: $url, size: $size, dims: $dims, duration: $duration)';
   }
 
   @override
-  List<Object?> get props => [url, previewUrl, size, dims, duration];
+  List<Object?> get props => [url, size, dims, duration];
 }

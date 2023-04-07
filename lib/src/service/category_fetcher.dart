@@ -12,7 +12,7 @@ Future<List<TenorCategories?>> _requestTenorCategories(
 
   final data = await _serverRequest(path);
   final res = <TenorCategories?>[];
-  if (data != null && data['tags'] != null) {
+  if (data != null && data is Map && data['tags'] != null) {
     data['tags'].forEach((tag) {
       res.add(TenorCategories.fromMap(tag));
     });

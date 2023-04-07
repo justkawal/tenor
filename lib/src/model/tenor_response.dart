@@ -4,59 +4,34 @@ part of tenor;
 class TenorResponse extends Equatable {
   final List<TenorResult> results;
   final String? next;
-  final ContentFilter contentFilter;
-  final SearchFilter searchFilter;
   final String? keys;
-  final List<MediaFilter> mediaFilter;
   final EndPoint? endpoint;
   const TenorResponse({
     required this.results,
     this.next,
     this.endpoint,
-    this.searchFilter = SearchFilter.gif,
     this.keys,
-    this.contentFilter = ContentFilter.high,
-    this.mediaFilter = MediaFilter.values,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'results': results.map((x) => x.toMap()).toList(),
       'next': next,
-      'contentFilter': contentFilter.name,
-      'mediaFilter': mediaFilter.map((x) => x.name).toList(),
-      'searchFilter': searchFilter.name,
     };
   }
 
   static TenorResponse fromMap(
     Map<String, dynamic> map, {
-    bool canShare = false,
     EndPoint? endPoint,
     String? keys,
   }) {
-    final mediaFilter = <MediaFilter>[];
-
-    if (map['mediaFilter'] != null) {
-      final mediaFilterList = MediaFilter.values.map((e) => e.name).toList();
-
-      for (final String filter in map['mediaFilter']) {
-        final mediaFilterIndex = mediaFilterList.indexOf(filter);
-        if (mediaFilterIndex != -1) {
-          mediaFilter.add(MediaFilter.values[mediaFilterIndex]);
-        }
-      }
-    }
     return TenorResponse(
-      results: List<TenorResult>.from(map['results']?.map(
-              (x) => TenorResult.fromMap(x, canShare: canShare, keys: keys)) ??
-          <TenorResult>[]),
+      results: List<TenorResult>.from(
+          map['results']?.map((x) => TenorResult.fromMap(x, keys: keys)) ??
+              <TenorResult>[]),
       next: map['next'],
       endpoint: endPoint,
       keys: keys,
-      searchFilter: map['searchFilter'] ?? SearchFilter.gif,
-      contentFilter: map['contentFilter'] ?? ContentFilter.high,
-      mediaFilter: mediaFilter,
     );
   }
 
@@ -81,10 +56,8 @@ class TenorResponse extends Equatable {
   @override
   String toString() => 'TenorResponse(results: $results, next: $next)';
 
-  static TenorResponse fromJson(String source,
-          {bool canShare = false, String? keys}) =>
-      TenorResponse.fromMap(json.decode(source),
-          canShare: canShare, keys: keys);
+  static TenorResponse fromJson(String source, {String? keys}) =>
+      TenorResponse.fromMap(json.decode(source), keys: keys);
 
   @override
   List<Object?> get props => [results];

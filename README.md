@@ -89,7 +89,6 @@ Important: `limit`: `1 <= limit <= 50`
 //   ContentFilter contentFilter = ContentFilter.high,
 //   GifSize size = GifSize.all,
 //   MediaFilter mediaFilter = MediaFilter.minimal,
-//   bool canRegisterShare = false,
 // })
 
 Tenor tenor = Tenor(apiKey: 'Tenor Api');
@@ -115,7 +114,6 @@ Important: `limit`: `1 <= limit <= 50`
 //   ContentFilter contentFilter = ContentFilter.high,
 //   GifSize size = GifSize.all,
 //   MediaFilter mediaFilter = MediaFilter.minimal,
-//   bool canRegisterShare = false,
 // })
 
 Tenor tenor = Tenor(apiKey: 'Tenor Api');
@@ -141,7 +139,6 @@ Important: `limit`: `1 <= limit <= 50`
 //   ContentFilter contentFilter = ContentFilter.high,
 //   GifSize size = GifSize.all,
 //   MediaFilter mediaFilter = MediaFilter.minimal,
-//   bool canRegisterShare = false,
 // })
 
 Tenor tenor = Tenor(apiKey: 'Tenor Api');
@@ -164,7 +161,6 @@ Important: `limit`: `1 <= limit <= 50`
 // Future<List<String>> searchSuggestions(
 //   String search, {
 //   int limit = 20,
-//   bool automaticallyRegisterShare = false,
 // })
 
 Tenor tenor = Tenor(apiKey: 'Tenor Api');
@@ -198,7 +194,6 @@ Important: `limit`: `1 <= limit <= 50`
 // Future<List<String>> autoComplete(
 //   String search, {
 //   int limit = 20,
-//   bool automaticallyRegisterShare = false,
 // })
 
 Tenor tenor = Tenor(apiKey: 'Tenor Api');

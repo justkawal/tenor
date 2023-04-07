@@ -2,20 +2,21 @@ part of tenor;
 
 // ignore: must_be_immutable
 class TenorCategories extends Equatable {
-  final String? searchTerm;
-  final String? path;
-  final String? image;
-  final String? name;
+  final String searchTerm;
+  final String path;
+  final String image;
+  final String name;
   const TenorCategories({
-    this.searchTerm,
-    this.path,
-    this.image,
-    this.name,
+    required this.searchTerm,
+    required this.path,
+    required this.image,
+    required this.name,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'searchterm': searchTerm,
+      'path': path,
       'image': image,
       'name': name,
     };

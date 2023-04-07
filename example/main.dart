@@ -5,34 +5,37 @@ import 'dart:io';
 int i = 0;
 void main() async {
   // replce 'ApiKey' with your own key -> 'You Own Api Key'
-  final apiKey = File('/path to api key/apiKey').readAsStringSync();
+  final apiKey = File('./example/api_key').readAsStringSync();
   final api = Tenor(apiKey: apiKey, language: TenorLanguage.English);
 
   ///
   /// exmaple of searching of keyword on tenor
   ///
   print(' Fetching 5 donate searched Gif ');
-  var res = await api.searchGIF('donate', limit: 5);
-  printTenorResponse(res);
+  var res = await api.searchGIF(
+    'donate',
+    limit: 5,
+    mediaFilter: MediaFilter.values,
+  );
+  print(res);
 
   log(' Fetching Next 5 Results ');
-  printTenorResponse(await res?.fetchNext(limit: 5));
+  print(await res?.fetchNext(limit: 5));
 
   ///
-  /// exmaple of requesting trending Gif
-  ///
+  /// exmaple of requesting featured Gif
 
-  log('Fetching 5 Trending Gif');
-  res = await api.requestTrendingGIF(limit: 5);
+  log('Fetching 5 Featured Gif');
+  res = await api.requestFeaturedGIF(limit: 5);
   if (res?.results.isNotEmpty ?? false) {
     final val = await res?.results.first.registerShare();
     print(val.toString());
   }
-  //printTenorResponse(res);
+  //print(res);
 
   /// next results
   log('Fetching Next 5 Resultsf');
-  printTenorResponse(await res?.fetchNext(limit: 5));
+  print(await res?.fetchNext(limit: 5));
 
   ///
   /// exmaple of requesting categories
@@ -49,14 +52,11 @@ void main() async {
   log(' Fetching Auto Complete Suggestions ');
   final suggestions = await api.autoComplete('doc');
   print(suggestions.toString());
-}
 
-void printTenorResponse(TenorResponse? res) {
-  res?.results.forEach((tenorResult) {
-    final title = tenorResult.title;
-    final media = tenorResult.media;
-    print('$title: gif   ${i++}   : ${media?.gif?.previewUrl?.toString()}');
-  });
+  final posts = await api.requestPosts(
+    ids: ['4284007372119812404', '16908095044322257864', '2813501485379157722'],
+  );
+  print(posts);
 }
 
 void log(String s) => print('\n\n--------- $s ------------\n\n');

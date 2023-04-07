@@ -4,7 +4,6 @@ part of tenor;
 Future<TenorResponse?> _privateRequestGif(
   EndPoint endPoint,
   String keys, {
-  bool canShare = false,
   bool random = false,
   int limit = 20,
   SearchFilter? searchFilter = SearchFilter.gif,
@@ -26,7 +25,8 @@ Future<TenorResponse?> _privateRequestGif(
   }
 
   if (mediaFilter != null) {
-    path += '&media_filter=${mediaFilter.map((e) => e.name).join(',')}';
+    path +=
+        '&media_filter=${mediaFilter.toSet().toList().map((e) => e.name).join(',')}';
   }
 
   if (size != null) {
@@ -44,8 +44,7 @@ Future<TenorResponse?> _privateRequestGif(
   final data = await _serverRequest(path);
   TenorResponse? res;
   if (data != null && data.length > 0) {
-    res = TenorResponse.fromMap(data,
-        endPoint: endPoint, keys: keys, canShare: canShare);
+    res = TenorResponse.fromMap(data, endPoint: endPoint, keys: keys);
   }
   return res;
 }

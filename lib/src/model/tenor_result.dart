@@ -2,63 +2,90 @@ part of tenor;
 
 // ignore: must_be_immutable
 class TenorResult extends Equatable {
-  final bool hasCaption;
+  /// A Unix timestamp that represents when this post was created.
+  final DateTime created;
+
+  /// Returns true if this post contains audio.
   final bool hasaudio;
-  final bool canShare;
-  final int shares;
-  final String? id;
+
+  /// Tenor result identifier
+  final String id;
+
+  /// A dictionary with a [content_format](https://developers.google.com/tenor/guides/response-objects-and-errors#content-formats) as the key and a [Media Object](https://developers.google.com/tenor/guides/response-objects-and-errors#media-object) as the value.
+  final TenorGif media_formats;
+
+  /// An array of tags for the post
+  final List<String> tags;
+
+  /// The title of the post
+  final String title;
+
+  /// A textual description of the content.
+  ///
+  /// We recommend that you use content_description for user accessibility features.
+  final String content_description;
+
+  /// The full URL to view the post on [tenor.com](https://tenor.com)
+  final String itemurl;
+
+  /// Returns true if this post contains captions.
+  final bool hasCaption;
+
+  /// Comma-separated list to signify whether the content is a sticker or static image, has audio, or is any combination of these.
+  /// If sticker and static aren't present, then the content is a GIF.
+  /// A blank flags field signifies a GIF without audio.
+  final List<String> flags;
+
   final String? keys;
-  final String? title;
-  final String? created;
+
+  /// A short URL to view the post on [tenor.com](https://tenor.com)
   final String? url;
-  final String? itemurl;
-  final TenorGif? media;
   const TenorResult({
-    this.canShare = false,
-    this.created,
+    required this.created,
     this.hasaudio = false,
+    required this.id,
+    required this.media_formats,
+    this.tags = const <String>[],
+    required this.title,
+    required this.content_description,
+    required this.itemurl,
     this.hasCaption = false,
-    this.id,
+    required this.flags,
     this.keys,
-    this.itemurl,
-    this.media,
-    this.shares = 0,
-    this.title,
     this.url,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'canShare': canShare,
-      'created': created,
+      'created': created.millisecondsSinceEpoch ~/ 1000,
       'hasaudio': hasaudio,
-      'hasCaption': hasCaption,
       'id': id,
-      'itemurl': itemurl,
-      'media': media?.toMap(),
-      'shares': shares,
+      'media_formats': media_formats.toMap(),
+      'tags': tags,
       'title': title,
+      'content_description': content_description,
+      'itemurl': itemurl,
+      'hasCaption': hasCaption,
+      'flags': flags,
       'url': url,
     };
   }
 
-  static TenorResult fromMap(Map<String, dynamic> map,
-      {bool canShare = false, String? keys}) {
+  static TenorResult fromMap(Map<String, dynamic> map, {String? keys}) {
     return TenorResult(
-      hasCaption: map['hascaption'] ?? false,
+      created:
+          DateTime.fromMillisecondsSinceEpoch(map['created'].round() * 1000),
       hasaudio: map['hasaudio'] ?? false,
-      shares: map['shares'] ?? 0,
       id: map['id'],
-      keys: keys,
+      media_formats: TenorGif.fromMap(map['media_formats']),
+      tags: List<String>.from(map['tags'] ?? <String>[], growable: false),
       title: map['title'],
-      created: '${map['created']}',
-      url: map['url'],
+      content_description: map['content_description'],
       itemurl: map['itemurl'],
-      canShare: canShare,
-      media: TenorGif.fromMap((map['media'] != null &&
-              (map['media'] is List && map['media'].length != 0))
-          ? map['media'][0]
-          : <String, dynamic>{}),
+      hasCaption: map['hascaption'] ?? false,
+      flags: List<String>.from(map['flags'] ?? <String>[], growable: false),
+      keys: keys,
+      url: map['url'],
     );
   }
 
@@ -67,7 +94,6 @@ class TenorResult extends Equatable {
   /// As Tenor’s service evolves, it will be used to better tune search results to your users’ specific languages, cultures, and social trends.
   ///
   /// Note: To use `registerShare` It is important pass the `language_key` on the tenor api initialization.
-  ///
   ///
   /// For more info head to: https://tenor.com/gifapi/documentation#endpoints-registershare
   /// ```dart
@@ -78,39 +104,60 @@ class TenorResult extends Equatable {
   ///
   /// String? isRegistered = await tenorResultObject.registerShare();
   ///
-  /// if (isRegistered != null && isRegistered == 'ok'){
-  ///   print('Sharing Registered: $isRegistered');
+  /// if (isRegistered != null && isRegistered){
+  ///   print('Share Registered');
   /// }else{
-  ///   print('not registered ');
+  ///   print('Share not Registered');
   /// }
   /// ```
   ///
   ///
-  Future<String?> registerShare() async {
-    if (!canShare || keys == null || id == null) {
+  Future<bool?> registerShare() async {
+    if (keys == null) {
       return null;
     }
-    if (canShare) {
-      final result = await _registerShareOperation(keys!, id!);
-      if (result.toLowerCase() == 'ok') {
-        return 'ok';
-      }
-    }
-    return null;
+
+    return await _registerShareOperation(keys!, id);
   }
 
   String toJson() => json.encode(toMap());
 
-  static TenorResult fromJson(String source,
-          {bool canShare = false, String? keys}) =>
-      TenorResult.fromMap(json.decode(source), canShare: canShare, keys: keys);
+  static TenorResult fromJson(String source, {String? keys}) =>
+      TenorResult.fromMap(json.decode(source), keys: keys);
 
   @override
   String toString() {
-    return 'TenorResult(hasCaption: $hasCaption, hasaudio: $hasaudio, shares: $shares, id: $id, title: $title, created: $created, url: $url, itemurl: $itemurl, media: $media)';
+    return '''
+    TenorResult(
+      created: $created,
+      hasaudio: $hasaudio,
+      id: $id,
+      media_formats: $media_formats,
+      tags: $tags,
+      title: $title,
+      content_description: $content_description,
+      itemurl: $itemurl,
+      hasCaption: $hasCaption,
+      flags: $flags,
+      keys: $keys,
+      url: $url,
+    )
+''';
   }
 
   @override
-  List<Object?> get props =>
-      [hasCaption, hasaudio, shares, id, title, created, url, itemurl, media];
+  List<Object?> get props => [
+        created,
+        hasaudio,
+        id,
+        media_formats,
+        tags,
+        title,
+        content_description,
+        itemurl,
+        hasCaption,
+        flags,
+        keys,
+        url
+      ];
 }

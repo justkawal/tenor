@@ -1,10 +1,9 @@
 part of tenor;
 
-/// Request Gif with `Search` parameter
-Future<List<String>> _requestSearchSuggestions(
+Future<List<String>> _requestResultStringlist(
   EndPoint endPoint,
   String keys, {
-  int limit = 1,
+  int limit = 20,
 }) async {
   final path = '${endPoint.name}$keys&limit=${limit.clamp(1, 50)}';
 
